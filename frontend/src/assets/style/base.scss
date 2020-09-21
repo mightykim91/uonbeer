@@ -1,0 +1,57 @@
+$font-main: #333333;
+$nav-height: 40px;
+$highlight-color: rgb(230, 174, 20);
+$highlight-menu: #555864;
+$gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
+
+@mixin fixed-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+@keyframes blend-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes blend-out {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+// modules
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide-on-mobile {
+  display: inherit;
+}
+
+.show-on-mobile {
+  display: none;
+}
+
+.view-wrap {
+  margin: 0 10vw;
+}
+
+@media screen and (max-width: 768px) {
+  .view-wrap {
+    margin: 40px 0;
+  }
+
+  .hide-on-mobile {
+    display: none;
+  }
+
+  .show-on-mobile {
+    display: inline;
+  }
+}
