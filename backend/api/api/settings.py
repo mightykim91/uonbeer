@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'beer',
     'recommendation',
+    'review',
     #CORS
     'corsheaders',
 ]
