@@ -26,20 +26,24 @@ export default {
   },
 
   actions: {
-    fetchSearchResult({ commit }, keyword) {
-      let dummyItem = {
-        name: 'omg IPA',
-        country: '대한민국',
-        state: '서울',
-        brewery: 'mighty beer',
-        abv: '7.5%',
-        reviewCount: 3,
-        likeCount: 150,
-      }
-      let dummyArray = []
-      ;(function test() {for (let i=0; i<10; i++) {dummyArray.push(dummyItem)}}())
-      commit('setKeyword', keyword)
-      commit('setSearchResultArray', dummyArray)
+    // fetchSearchResult({ commit }, keyword) {
+    //   let dummyItem = {
+    //     name: 'omg IPA',
+    //     country: '대한민국',
+    //     state: '서울',
+    //     brewery: 'mighty beer',
+    //     abv: '7.5%',
+    //     reviewCount: 3,
+    //     likeCount: 150,
+    //   }
+    //   let dummyArray = []
+    //   ;(function test() {for (let i=0; i<10; i++) {dummyArray.push(dummyItem)}}())
+    //   commit('setKeyword', keyword)
+    //   commit('setSearchResultArray', dummyArray)
+    // }
+    fetchSearchResult({commit}, response) {
+      commit('setKeyword', response.config.params.keyword)
+      commit('setSearchResultArray', response.data)
     }
   }
 }

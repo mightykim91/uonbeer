@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import F, Func, Value
+from django.db.models import F, Func, Value, Q
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -65,13 +65,14 @@ def searchBeer(request):
     #Get all beer
     beer = Beer.objects.all()
     #Create nospace column and add beer name after removing all spaces
-    preprocess = beer.annotate(nospace=Func(
-        F('name_kr'),
-        Value(" "), Value(""),
-        function="replace",
-    ))
+    preprocess = beer.annotate(
+        nospace1=Func( F('name_kr'), Value(" "), Value(""), function="replace" ), 
+        nospace2=Func( F('name'), Value(" "), Value(""), function="replace"),
+        )
     #Search beer for keyword 
-    rst = preprocess.filter(nospace__contains=keyword)
+    print(preprocess[0].nospace2)
+    rst = preprocess.filter(Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword))
+    print(rst)
     serializer = BeerSerializer(rst, many=True)
     if serializer.data:
         return Response(serializer.data)
