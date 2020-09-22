@@ -3,7 +3,7 @@ import axios from '../axios.js'
 export default {
     //account
     login(data) {
-        return new Promise(function(resolve) {resolve({data: { key: 'temp'}})})
+        // return new Promise(function(resolve) {resolve({data: { key: 'temp'}})})
         return axios({
             url: 'rest-auth/login/',
             method: 'post',
@@ -38,6 +38,12 @@ export default {
             url: 'beer/search',
             method: 'get',
             params: { keyword: data.keyword }
+        })
+    },
+    getSingleBeer(data) {
+        return axios({
+            url: 'beer/'+data,
+            method: 'get',
         })
     },
 }

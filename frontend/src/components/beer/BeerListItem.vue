@@ -1,9 +1,10 @@
 <template>
   <div
-    class="beer-list-item-wrap flex-center">
+    class="beer-list-item-wrap flex-center"
+    @click="onClickSingleBeer(beerId)">
 
     <!-- beer image -->
-    <div class="beer-img-wrap" @click="show">
+    <div class="beer-img-wrap">
       <img :src="getRandomBeerImg()" alt="pic" class="beer-img">
     </div>
 
@@ -29,6 +30,8 @@
 </template>
 
 <script>
+import api from '@/api/api'
+
 export default {
   name: 'BeerListItem',
   
@@ -47,6 +50,14 @@ export default {
     getRandomBeerImg() {
       let randomNumber = Math.floor(Math.random() * 5 + 1)
       return require(`../../assets/img/beer${randomNumber}.svg`)
+    },
+    onClickSingleBeer(id) {
+      api.getSingleBeer(id)
+        .then((res) => {
+          console.log(res)
+          this.show()
+        })
+        .catch(()=> alert('err'))
     },
     show () {
       this.$modal.show(String(this.beerId));
