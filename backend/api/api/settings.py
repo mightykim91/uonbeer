@@ -139,7 +139,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ALGO_PATH = os.path.join(BASE_DIR, 'recommendation/src/algo.pkl')
 
-
 #rest-auth
 SITE_ID=1
 

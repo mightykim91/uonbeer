@@ -11,7 +11,7 @@ class ReviewModel(models.Model):
     content = models.CharField(max_length=500)
     
     #author
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="reviews", on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User', related_name="reviews", on_delete=models.CASCADE, null=True)
 
     #created date
     created_date = models.DateField(auto_now_add=True, null=True)
@@ -28,4 +28,4 @@ class ReviewModel(models.Model):
             "created_date": self.created_date,
             "last_edit_date": self.last_edit.date,
         }
-        return print(result)
+        return result
