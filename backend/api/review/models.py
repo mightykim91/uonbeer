@@ -13,6 +13,8 @@ class ReviewModel(models.Model):
     #author
     author = models.ForeignKey('auth.User', related_name="reviews", on_delete=models.CASCADE, null=True)
 
+    #image
+
     #created date
     created_date = models.DateField(auto_now_add=True, null=True)
     
