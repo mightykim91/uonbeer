@@ -7,6 +7,7 @@ import accountsRouter from './modules/accountsRouter'
 // components
 import Home from '@/views/Home'
 import SearchView from '@/views/search/SearchView'
+import UserPageView from '@/views/userpage/UserPageView'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
         component: SearchView
       }
     ]
+  },
+  {
+    path: '/user/:username',
+    name: 'UserPage',
+    component: UserPageView,
   },
   ...accountsRouter,
 ]
