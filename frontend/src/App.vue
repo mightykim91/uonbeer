@@ -20,7 +20,7 @@ export default {
     return {
       showSide: false,
     }
-  }
+  },
 }
 </script>
 
