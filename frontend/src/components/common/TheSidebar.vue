@@ -10,37 +10,39 @@
       <!-- sidebar -->
       <div :class="[ show ? 'sidebar-show' : '', 'sidebar' ]">
         <div v-show="show">
-          <div class="menu-item"></div>
+
+          <!-- user info -->
+          <div
+            @click="onClickLink(`/user/${username}`)"
+            class="menu-item">
+            마이페이지~
+          </div>
+          
           <!-- menu items -->
           <div
             @click="onClickLink('/')"
-            class="menu-wrap">
-            <div class="menu-item">
-              <i class="fas fa-home"></i>
-              홈
-            </div>
+            class="menu-item">
+            <i class="fas fa-home"></i>
+            홈
           </div>
-
+          
           <div
             @click="onClickLink('/search')"
-            class="menu-wrap">
-            <div class="menu-item">
-              <i class="fas fa-search"></i>
-              검색
-            </div>
+            class="menu-item">
+            <i class="fas fa-search"></i>
+            검색
           </div>
-          <div class="menu-wrap">
+
             <div class="menu-item">
               <i class="fas fa-list"></i>
               게시판
             </div>
-          </div>
-          <div class="menu-wrap">
+
             <div class="menu-item">
               <i class="fas fa-question"></i>
               About Us
             </div>
-          </div>
+
         </div>
       </div>
   </div>
@@ -56,6 +58,9 @@ export default {
   computed: {
     show() {
       return this.$store.state.common.showSidebar
+    },
+    username() {
+      return this.$cookies.get('username') ? this.$cookies.get('username') : 'temp'
     }
   },
 
