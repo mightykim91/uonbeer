@@ -1,11 +1,12 @@
 <template>
-  <div
-    class="beer-list-item-wrap flex-center"
-    @click="onClickSingleBeer(beerId)">
+  <div class="beer-list-item-wrap flex-center">
 
     <!-- beer image -->
-    <div class="beer-img-wrap">
-      <img :src="getRandomBeerImg()" alt="pic" class="beer-img">
+    <div 
+      @click="onClickBeerItem"
+      class="beer-img-wrap">
+      <img
+        :src="getRandomBeerImg()" alt="pic" class="beer-img">
     </div>
 
     <!-- beer info -->
@@ -16,25 +17,19 @@
       <div>{{ item.brewery }}</div>
       <div>ABV {{ item.abv }}</div>
 
-      <div class="beer-match-rate">{{ matchRate }}%</div>
-    </div>
-
-    <div>
-      
-      <modal :name="String(beerId)">
-        {{ item.name }}
-        {{ item.abv}}
-      </modal>
+      <!-- <div class="beer-match-rate">{{ matchRate }}%</div> -->
     </div>
   </div>
 </template>
 
 <script>
-import api from '@/api/api'
+// modules
+// import api from '@/api/api'
 
+// components
 export default {
   name: 'BeerListItem',
-  
+
   props: {
     item: Object,
     beerId: Number
@@ -51,19 +46,22 @@ export default {
       let randomNumber = Math.floor(Math.random() * 5 + 1)
       return require(`../../assets/img/beer${randomNumber}.svg`)
     },
-    onClickSingleBeer(id) {
-      api.getSingleBeer(id)
-        .then((res) => {
-          console.log(res)
-          this.show()
-        })
-        .catch(()=> alert('err'))
+    onClickBeerItem() {
+      this.$store.commit('beer/setBeerItem', this.item)
+      this.$store.commit('common/toggleShowModal')
+      // this.show()
+    //   api.getSingleBeer(id)
+    //     .then((res) => {
+    //       console.log(res)
+    //       this.show()
+    //     })
+    //     .catch(()=> alert('err'))
     },
     show () {
-      this.$modal.show(String(this.beerId));
+      this.$modal.show(this.item.name);
     },
     hide () {
-      this.$modal.hide(String(this.beerId));
+      this.$modal.hide(this.item.name);
     },
   },
 }
@@ -110,12 +108,6 @@ export default {
     }
   }
   &-name {
-    // border: none;
-    // border-bottom: 6px solid;
-    // border-image-slice: 1;
-    // border-width: 3px;
-    // border-image-source: linear-gradient(to left, #ffc506, #3e5de6);
-    // border-bottom: 2px solid salmon;
     color: black !important;
     font-size: 1.5rem;
     font-weight: bolder;
@@ -127,5 +119,50 @@ export default {
   font-size: 3rem;
   font-weight: bolder;
   text-align: center;
+}
+
+.modal-info {
+  &-title {
+    padding: 5px;
+    text-align: right;
+    border-bottom: 1px solid lightgrey;
+
+    i {
+      transition: 200ms;
+      font-size: 1.3rem;
+
+      &:hover {
+        color: tomato;
+        transform: rotateZ(180deg);
+      }
+    }
+  }
+
+  &-name {
+    height: 20px;
+    border-bottom: 1px solid lightgrey;
+  }
+
+  &-box {
+    display: flex;
+    height: 220px;
+
+    div {
+      width: 300px;
+      border: 1px solid salmon;
+    }
+  }
+}
+
+.review-input {
+  width: 300px;
+  height: 150px;
+}
+
+@media screen and (max-width: 768px) {
+  .modal-info-box {
+    display: inherit;
+    max-width: 100vw;
+  }
 }
 </style>

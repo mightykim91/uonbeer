@@ -3,12 +3,14 @@ import Vuex from 'vuex'
 
 import common from './modules/common'
 import search from './modules/search'
-
+import beer from './modules/beer'
+  
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    common: common,
-    search: search,
+    common,
+    search,
+    beer
   }
 })

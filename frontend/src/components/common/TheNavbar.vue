@@ -172,7 +172,7 @@ export default {
   display: flex;
   align-items: center;
   height: $nav-height - 10;
-  width: 116px;
+  // width: 116px;
   font-size: 1.2rem;
   text-align: left;
   transition: ease-in-out 300ms;
