@@ -13,7 +13,7 @@
 </template>
 
 <script>
-// import api from '@/api/api'
+import api from '@/api/api'
 
 export default {
   name: 'searchBar',
@@ -27,20 +27,16 @@ export default {
   methods: {
     onSubmit() {
       if (this.keyword) {
-      // dummy
-        this.$store.dispatch('search/fetchSearchResult', this.keyword)
-
-      // the real one.. 
-        // api.search({ keyword: this.keyword
-        // }).then((res) => {
-        //   console.log(res)
-        //   if (res.status === 200) {
-        //     this.$store.dispatch('search/fetchSearchResult', res)
-        //   } else {
-        //     alert('결과없음')
-        //     this.$store.dispatch('search/fetchSearchResult', res)
-        //   }
-        // }).catch(() => alert('error'))
+        api.search({ keyword: this.keyword
+        }).then((res) => {
+          console.log(res)
+          if (res.status === 200) {
+            this.$store.dispatch('search/fetchSearchResult', res)
+          } else {
+            alert('결과없음')
+            this.$store.dispatch('search/fetchSearchResult', res)
+          }
+        }).catch(() => alert('error'))
         this.$router.push(`/search/${this.keyword}`).catch(() => {})
       } else {
         alert('검색어를 입력하세요!')
