@@ -23,9 +23,6 @@ export default {
       return this.$store.state.search.searchResultArray
     }
   },
-
-  methods: {
-  },
 }
 </script>
 

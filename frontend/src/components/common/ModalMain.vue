@@ -9,12 +9,8 @@
     <!-- modal -->
     <div
       class="modal-container">
-      <!-- title -->
-      <div class="modal-header">
         <!-- close button -->
-        <i @click="hideModal" class="far fa-times-circle">
-        </i>
-      </div>
+        <i @click="hideModal" class="far fa-times-circle modal-close-btn"></i>
 
       <!-- body -->
       <div class="modal-body">
@@ -32,7 +28,7 @@ export default {
   name: 'ModalMain',
 
   components: {
-    'beer-list-item-detail': BeerListItemDetail
+    'beer-list-item-detail': BeerListItemDetail,
   },
 
   computed: {
@@ -45,14 +41,14 @@ export default {
     hideModal() {
       this.$store.commit('common/toggleShowModal')
     },
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/style/base';
 $modal-width: 50vw;
-$modal-height: 70vh;
+$modal-height: 600px;
 
 .modal {
   &-overlay {
@@ -66,6 +62,7 @@ $modal-height: 70vh;
     position: fixed;
     top: 15vh;
     left: (100vw - $modal-width)/2;
+    margin: auto;
 
     width: $modal-width;
     height: $modal-height;
@@ -74,27 +71,27 @@ $modal-height: 70vh;
     overflow: auto;
     z-index: 5; 
 
+    animation: blend-in 400ms;
+
     &::-webkit-scrollbar {
       display: none;
     }
   }
 
-  &-header {
-    border-bottom: 1px solid lightgrey;
-    text-align: right;
-    padding: 10px 15px;
-    
-    i {
-      transition: 200ms;
+  &-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: 200ms;
   
       &:hover {
         transform: rotateZ(180deg);
+        color: crimson;
       }
-    }
   }
 
   &-body {
-    padding: 0 20px 15px;
+    padding: 0 3vw 15px;
   }
 }
 
