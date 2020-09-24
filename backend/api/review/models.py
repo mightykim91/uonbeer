@@ -14,7 +14,8 @@ class ReviewModel(models.Model):
     author = models.ForeignKey('auth.User', related_name="reviews", on_delete=models.CASCADE, null=True)
 
     #image
-
+    image_url = models.URLField(max_length=200)
+    
     #created date
     created_date = models.DateField(auto_now_add=True, null=True)
     
