@@ -2,7 +2,7 @@
   <div class="flex-center beer-list-box">
     <div 
       v-for="(item, index) in searchResultArray" :key="index">
-      <beer-list-item :item="item" :beer-id="item.id"></beer-list-item>
+      <beer-list-item :item="item"></beer-list-item>
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: 'BeerList',
 
   components: {
-    'beer-list-item': BeerListItem
+    'beer-list-item': BeerListItem,
   },
 
   computed: {
