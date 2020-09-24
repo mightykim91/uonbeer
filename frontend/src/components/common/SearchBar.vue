@@ -27,10 +27,6 @@ export default {
   methods: {
     onSubmit() {
       if (this.keyword) {
-      // dummy
-        // this.$store.dispatch('search/fetchSearchResult', this.keyword)
-
-      // the real one.. 
         api.search({ keyword: this.keyword
         }).then((res) => {
           console.log(res)
