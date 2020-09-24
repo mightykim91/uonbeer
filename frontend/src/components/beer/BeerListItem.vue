@@ -24,7 +24,7 @@
 
 <script>
 // modules
-// import api from '@/api/api'
+import api from '@/api/api'
 
 // components
 export default {
@@ -49,19 +49,12 @@ export default {
     onClickBeerItem() {
       this.$store.commit('beer/setBeerItem', this.item)
       this.$store.commit('common/toggleShowModal')
-      // this.show()
-    //   api.getSingleBeer(id)
-    //     .then((res) => {
-    //       console.log(res)
-    //       this.show()
-    //     })
-    //     .catch(()=> alert('err'))
-    },
-    show () {
-      this.$modal.show(this.item.name);
-    },
-    hide () {
-      this.$modal.hide(this.item.name);
+
+      api.getSingleBeer(id)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch(()=> alert('err'))
     },
   },
 }
