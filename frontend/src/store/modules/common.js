@@ -4,7 +4,7 @@ export default {
   namespaced: true,
   
   state: {
-    cookie: cookies.get('auth') ? true : false, 
+    cookie: cookies.get('auth') ? true : false,
     showSidebar: false,
     showModalMain: false,
   },

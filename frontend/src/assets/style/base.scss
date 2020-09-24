@@ -30,6 +30,12 @@ $gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
   align-items: center;
 }
 
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .hide-on-mobile {
   display: inherit;
 }
@@ -40,6 +46,22 @@ $gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
 
 .view-wrap {
   margin: 0 10vw;
+}
+
+.base-btn {
+  @extend .flex-center;
+  padding: 0 10px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  font-size: 0.8rem;
+  transition: 200ms;
+  
+  &:hover {
+    cursor: pointer;
+    background-color: $highlight-color;
+    color: white;
+  }
 }
 
 @media screen and (max-width: 768px) {

@@ -30,11 +30,13 @@ export default {
       let dummyArray = []
       ;(function() {for (let i=0; i<10; i++) {
         let dummyItem = {
+          id: i,
           name: 'omg IPA' + i,
           country: '대한민국',
           state: '서울',
           brewery: 'mighty beer',
           abv: '7.5%',
+          rate: 4.3,
           reviewCount: 3,
           likeCount: 150,
         }

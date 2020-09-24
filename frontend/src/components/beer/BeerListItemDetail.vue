@@ -1,58 +1,84 @@
 <template>
-  <div class="modal-body">
-        {{ item.name }}
+  <div class="beer-detail-wrap">
+    <div class="beer-name-box">
+      <div class="beer-name">{{ item.name }}</div>
+        <div></div>
+    </div>
 
-        <div class="beer-content-box">
-          <!-- beer info -->
-          <div class="beer-info">
-            {{ item }}
-          </div>
+    <div
+      class="beer-content-box">
+      <!-- beer info -->
+      <div class="beer-info">
+        <p class="info-title">맥주 정보</p>
+        <p>스타일 : Indian Pale Ale</p>
+        <p>지역 : {{ item.country }},
+          <span v-if="item.state"> {{ item.state }}</span>
+        </p>
+        <p>도수 : {{ item.abv }}</p>
+      </div>
 
-          <!-- beer graph -->
-          <div class="beer-graph">
-            chart or something
-          </div>
+      <!-- beer graph -->
+      <div class="beer-graph flex-center">
+        chart or something
+      </div>
+    </div>
+
+    <!-- review -->
+    <div class="review-wrap">
+      <div class="flex-between">
+
+        <div v-if="!isReviewCreate" class="info-title">
+          리뷰 {{ item.rate }}
+          <span style="margin-left: 10px;">
+            {{ item.reviewCount }}개의 리뷰가 있습니다.</span>
         </div>
 
-        <!-- review -->
-        <div class="review-wrap">
+        <div v-if="isReviewCreate" class="info-title">리뷰 작성</div>
 
-          <div class="review-title">리뷰</div>
+        <div 
+          @click="toggleReview"
+          class="base-btn">
+          <span v-if="isReviewCreate"><i class="fas fa-list"></i> 리뷰 목록</span>
+          <span v-else><i class="fas fa-pen"></i> 리뷰 작성</span>
+        </div>
+      </div>
 
-          <!-- review input -->
-          <div class="review-input-wrap">
-            <div class="review-input-photo"></div>
-            <textarea
-              v-model="reviewContent"
-              placeholder="리뷰를 작성해주세여"
-              class="review-input" cols="30" rows="10">
-            </textarea>
+      <!-- review create -->
+      <beer-review-create
+        @toggle-review="toggleReview"
+        v-if="isReviewCreate"
+        :itemId="item.id">
+      </beer-review-create>
 
-            <!-- review input submit button -->
-            <div
-              class="review-submit-btn-wrap">
-              <div class="review-submit-btn">등록</div>
-            </div>
-          </div>
+      <!-- review list -->
+      <div v-if="!isReviewCreate" class="review-list-wrap">
+        <!-- when reviews -->
+        <div v-if="beerReviewArray.length"></div>
 
-          <!-- review list -->
-          <div v-if="beerReviewArray.length"></div>
-          <div v-else class="no-review-wrap">
-            작성된 리뷰가 없습니다. <br>
-            첫 리뷰 작성자가 되어주세요!
-          </div>
+        <div v-else class="no-review-wrap">
+          작성된 리뷰가 없습니다. <br>
+          첫 리뷰 작성자가 되어주세요!
+        </div>
+      </div>
     </div>
   </div>
 
 </template>
 
 <script>
+import BeerReviewCreate from '@/components/beer/BeerReviewCreate'
+
 export default {
   name: 'BeerListItemDetail',
+
+  components: {
+    'beer-review-create': BeerReviewCreate,
+  },
 
   data() {
     return {
       reviewContent: null,
+      isReviewCreate: false,
     }
   },
 
@@ -64,64 +90,83 @@ export default {
       return this.$store.state.beer.beerReviewArray
     }
   },
+
+  methods: {
+    toggleReview() {
+      this.isReviewCreate = !this.isReviewCreate
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/style/base';
-$modal-width: 50vw;
 
-.modal-wrap {
-  position: fixed;
-  top: 10vh;
-  left: (100vw - $modal-width)/2;
-  width: $modal-width;
-  height: 80vh;
+.beer {
 
-  // border-radius: 5px;
-  background-color: white;
+  &-name {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    font-weight: bolder;
 
-  overflow: auto;
-  z-index: 5; 
+    &-box {
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-
-.modal-title {
-  border-bottom: 1px solid lightgrey;
-  text-align: right;
-  padding: 10px 15px;
-  
-  i{
-    transition: 200ms;
-    &:hover {
-      color: tomato;
-      transform: rotateZ(180deg);
+      border-bottom: 1px solid black;
+      border-image-source: linear-gradient(to right, $highlight-color, crimson);
+      border-image-slice: 60 30;
     }
   }
+
+  &-info {
+    padding: 5px;
+    text-align: left;
+    background-color: white;
+    border-radius: 5px;
+
+    .info-attr {
+      font-weight: bold;
+    }
+  }
+
+  &-graph {
+    background-color: #fefefe;
+    border: 1px dashed lightgrey;
+  }
 }
 
-.modal-overlay {
-  @include fixed-background;
-  background-color: black;
-  z-index: 4;
-}
+.info-title {
+  margin: 10px 0;
+  text-align: left;
+  font-size: 1.3rem;
+  font-weight: bold;
 
+  span {
+    color: grey;
+    font-size: 0.8rem;
+    font-weight: light;
+  }
+}
 
 .beer-content-box {
   display: flex;
+  background: white;
 
   div {
     width: 30vw;
-    height: 300px;
-    border: 1px solid salmon;
+    height: 250px;
+    // border: 1px solid salmon;
   }
 }
 
 .review {
+  &-wrap {
+    margin-top: 30px;
+  }
+
   &-title {
     padding: 10px;
   }
@@ -179,7 +224,6 @@ $modal-width: 50vw;
 
   .beer-content-box {
     display: inherit;
-
     div {
       width: auto;
     }
