@@ -2,9 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from .models import ReviewModel
 from .serializers import ReviewSerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 # Create your views here.
 @api_view(['GET'])
 def getAllReview(request):
@@ -21,8 +25,10 @@ def getReview(request, review_id):
 
 
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def createReview(request):
     serializer = ReviewSerializer(data=request.data)
+    print(request.user)
     if serializer.is_valid():
         serializer.save(author=request.user)
         return Response(serializer.data, status=200)

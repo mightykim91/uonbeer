@@ -10,9 +10,9 @@
       <!-- beer info -->
       <div class="beer-info">
         <p class="info-title">맥주 정보</p>
-        <p>스타일 : Indian Pale Ale</p>
-        <p>지역 : {{ item.country }},
-          <span v-if="item.state"> {{ item.state }}</span>
+        <p>스타일 : {{ item.style }}</p>
+        <p>지역 : {{ item.country }}
+          <span v-if="item.state">, {{ item.state }}</span>
         </p>
         <p>도수 : {{ item.abv }}</p>
       </div>
