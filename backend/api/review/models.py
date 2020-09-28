@@ -1,17 +1,22 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your models here.
 class ReviewModel(models.Model):
     
     #title
-    title = models.CharField(max_length=100)
+    # title = models.CharField(max_length=100)
+
+    #rate
+    rate = models.IntegerField(default=5)
 
     #content
-    content = models.CharField(max_length=500)
+    content = models.CharField(max_length=500, null=True)
     
     #author
-    author = models.ForeignKey('auth.User', related_name="reviews", on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(User, related_name="reviews", on_delete=models.CASCADE, null=True)
 
     #image
 
@@ -24,7 +29,8 @@ class ReviewModel(models.Model):
     #toString method
     def __str__(self):
         result = {
-            "title": self.title,
+            # "title": self.title,
+            "rate": self.rate,
             "content": self.content,
             "author": self.author,
             "created_date": self.created_date,
