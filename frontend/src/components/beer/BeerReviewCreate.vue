@@ -63,7 +63,7 @@ export default {
       this.rate = index
     },
     onClickReviewCreate() {
-      api.ReviewCreate({rate: this.rate, content: this.content})
+      api.ReviewCreate({rate: this.rate, content: this.content, auth: this.$cookies.get('auth')})
         .then((res)=>{
           console.log(res)
         })
