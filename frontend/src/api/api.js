@@ -61,7 +61,8 @@ export default {
             data: { 
                 content: data.content, 
                 rate: data.rate
-            }
+            },
+            headers: { 'Authorization': data.auth}
         })
     }
 }
