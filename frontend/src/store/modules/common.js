@@ -8,7 +8,7 @@ export default {
     showSidebar: false,
     showModalMain: false,
   },
-
+  
   mutations: {
     toggleCookie(state) {
       state.cookie = !state.cookie

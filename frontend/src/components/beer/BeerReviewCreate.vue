@@ -28,7 +28,7 @@
     <!-- submit button -->
     <div class="flex-between">
       <div></div>
-      <div class="review-submit-btn">리뷰 등록하기</div>
+      <div class="review-submit-btn" @click="onClickReviewCreate">리뷰 등록하기</div>
     </div>
 
 
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import api from '@/api/api'
 export default {
   name: 'BeerReviewCreate',
 
@@ -60,6 +61,13 @@ export default {
     },
     onClickStar(index) {
       this.rate = index
+    },
+    onClickReviewCreate() {
+      api.ReviewCreate({rate: this.rate, content: this.content})
+        .then((res)=>{
+          console.log(res)
+        })
+        .catch(() => alert('err'))
     }
   }
 }

@@ -42,7 +42,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - pem 키를 이용하여 AWS EC2 ubuntu 환경 접속
 
 ```bash
-ssh -i I3A309T.pem ubuntu@j3a405.p.ssafy.io
+ssh -i J3A405T.pem ubuntu@j3a405.p.ssafy.io
 #ubuntu@:~/$
 
 ```
@@ -64,7 +64,7 @@ sudo npm install -g npm
 
 ```bash
 #repo 폴더 생성, git clone 후 frontend 폴더로 이동하여 모듈 설치
-#ubuntu@:~/repo/s03p22a405/frontend$ 
+#ubuntu@:~/repo/s03p23a405/frontend$ 
 npm install
 #빌드하여 dist 폴더 생성
 npm run build

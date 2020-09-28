@@ -31,6 +31,12 @@ export default {
             }
         })
     },
+    getUser() {
+        return axios({
+            url: 'rest-auth/user/',
+            method: 'get'
+        })
+    },
 
     //search
     search(data) {
@@ -46,4 +52,16 @@ export default {
             method: 'get',
         })
     },
+
+    //review
+    ReviewCreate(data) {
+        return axios({
+            url: 'review/create/',
+            method: 'post',
+            data: { 
+                content: data.content, 
+                rate: data.rate
+            }
+        })
+    }
 }
