@@ -11,6 +11,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             "rate",
             "content",
             "author",
+            "beer"
             "created_date",
             "last_edit_date",
             "image_url"
