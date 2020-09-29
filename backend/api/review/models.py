@@ -1,6 +1,9 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
+
+from beer.models import Beer
+
 User = get_user_model()
 
 # Create your models here.
@@ -15,6 +18,9 @@ class ReviewModel(models.Model):
     #content
     content = models.CharField(max_length=500, null=True)
     
+    #beer
+    beer = models.ForeignKey(Beer, related_name='reviews', on_delete=models.CASCADE, null=True)
+
     #author
     author = models.ForeignKey(User, related_name="reviews", on_delete=models.CASCADE, null=True)
 

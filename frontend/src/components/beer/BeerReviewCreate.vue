@@ -63,9 +63,10 @@ export default {
       this.rate = index
     },
     onClickReviewCreate() {
-      api.ReviewCreate({rate: this.rate, content: this.content, auth: this.$cookies.get('auth')})
+      api.ReviewCreate({rate: this.rate, content: this.content, auth: this.$cookies.get('auth'), beer:this.itemId})
         .then((res)=>{
           console.log(res)
+          this.$emit('toggle-review')
         })
         .catch(() => alert('err'))
     }
