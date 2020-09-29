@@ -107,6 +107,7 @@ export default {
       api.logout()
         .then(() => {
           this.$cookies.remove('auth')
+          this.$cookies.remove('username')
           this.$store.commit('common/toggleCookie')
           this.$router.push('/')
           })
