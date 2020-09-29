@@ -94,6 +94,9 @@ export default {
   methods: {
     toggleReview() {
       this.isReviewCreate = !this.isReviewCreate
+    },
+    fetchReview() {
+      
     }
   }
 }
