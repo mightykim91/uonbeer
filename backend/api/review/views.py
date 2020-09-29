@@ -23,14 +23,18 @@ def getReview(request, review_id):
     serializer = ReviewSerializer(review)
     return Response(serializer.data, status=200)
 
+@api_view(['GET'])
+def getReviewByBeer(request, beer_id):
+    reviews = ReviewModel.objects.all().filter(beer=beer_id)
+    serializer = ReviewSerializer(reviews, many=True)
+    return Response(serializer.data, status=200)
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
-def createReview(request):
+def createReview(request, beer_id):
     serializer = ReviewSerializer(data=request.data)
-    print(request.user)
     if serializer.is_valid():
-        serializer.save(author=request.user)
+        serializer.save(author=request.user, beer=beer_id)
         return Response(serializer.data, status=200)
         
     return Response(serializer.errors, status=400)
