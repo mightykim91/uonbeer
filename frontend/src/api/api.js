@@ -31,6 +31,12 @@ export default {
             }
         })
     },
+    getUser() {
+        return axios({
+            url: 'rest-auth/user/',
+            method: 'get'
+        })
+    },
 
     //search
     search(data) {
@@ -46,4 +52,23 @@ export default {
             method: 'get',
         })
     },
+
+    //review
+    ReviewCreate(data) {
+        return axios({
+            url: 'review/create/'+data.beer,
+            method: 'post',
+            data: { 
+                content: data.content, 
+                rate: data.rate
+            },
+            headers: { Authorization: `Token ${data.auth}`}
+        })
+    },
+    getReviewByBeer(data) {
+        return axios({
+            url: 'review/'+data.beer+'/all',
+            method: 'get',
+        })
+    }
 }
