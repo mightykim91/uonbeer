@@ -46,16 +46,20 @@ export default {
       let randomNumber = Math.floor(Math.random() * 5 + 1)
       return require(`../../assets/img/beer${randomNumber}.svg`)
     },
-    onClickBeerItem() {
-      this.$store.commit('beer/setBeerItem', this.item)
-      this.$store.commit('common/toggleShowModal')
-
-      api.getSingleBeer(this.beerId)
+    fetchReview() {
+      api.getReviewByBeer({ beer: this.beerId})
         .then((res) => {
           console.log(res)
-          console.log(this.item)
+          this.$store.state.beer.beerReviewArray = res.data
         })
         .catch(()=> alert('err'))
+    },
+    onClickBeerItem() {
+      this.$store.commit('beer/setBeerItem', this.item)
+      this.$store.state.beer.beerReviewArray = []
+      this.fetchReview()
+      // console.log(this.$store.state.beer.beerReviewArray)
+      this.$store.commit('common/toggleShowModal')
     },
   },
 }
