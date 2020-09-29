@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from beer.models import Beer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -33,8 +34,9 @@ def getReviewByBeer(request, beer_id):
 @permission_classes([IsAuthenticated])
 def createReview(request, beer_id):
     serializer = ReviewSerializer(data=request.data)
+    beer = get_object_or_404(Beer, pk=beer_id)
     if serializer.is_valid():
-        serializer.save(author=request.user, beer=beer_id)
+        serializer.save(author=request.user, beer=beer)
         return Response(serializer.data, status=200)
         
     return Response(serializer.errors, status=400)
