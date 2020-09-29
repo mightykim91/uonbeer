@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+// modules
+import accountsRouter from './modules/accountsRouter'
+
 // components
 import Home from '@/views/Home'
-import AuthView from '@/views/accounts/AuthView'
 import SearchView from '@/views/search/SearchView'
 import UserPageView from '@/views/userpage/UserPageView'
 
@@ -14,10 +16,6 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/auth/:type',
-    component: AuthView,
   },
   {
     path: '/search/',
@@ -36,6 +34,7 @@ Vue.use(VueRouter)
     name: 'UserPage',
     component: UserPageView,
   },
+  ...accountsRouter,
 ]
 
 const router = new VueRouter({

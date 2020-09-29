@@ -70,9 +70,7 @@ def searchBeer(request):
         nospace2=Func( F('name'), Value(" "), Value(""), function="replace"),
         )
     #Search beer for keyword 
-    print(preprocess[0].nospace2)
     rst = preprocess.filter(Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword))
-    print(rst)
     serializer = BeerSerializer(rst, many=True)
     if serializer.data:
         return Response(serializer.data)

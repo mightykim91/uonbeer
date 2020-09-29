@@ -1,12 +1,7 @@
 $font-main: #333333;
 $nav-height: 40px;
-// $highlight-color: #e6ae14;
-$highlight-color: #4fd6ae;
-$highlight-menu: #555a64;
-$color-main: #e6ae14;
-$color-2: #4fd6ae;
-$color-3: #406cca;
-
+$highlight-color: rgb(230, 174, 20);
+$highlight-menu: #555864;
 $gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
 
 @mixin fixed-background {
