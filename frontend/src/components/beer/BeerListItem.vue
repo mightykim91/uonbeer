@@ -50,7 +50,7 @@ export default {
       this.$store.commit('beer/setBeerItem', this.item)
       this.$store.commit('common/toggleShowModal')
 
-      api.getSingleBeer(id)
+      api.getSingleBeer(this.item.id)
         .then((res) => {
           console.log(res)
         })
