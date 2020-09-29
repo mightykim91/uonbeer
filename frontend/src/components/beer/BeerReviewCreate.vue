@@ -68,7 +68,9 @@ export default {
           console.log(res)
           this.$emit('toggle-review')
         })
-        .catch(() => alert('err'))
+        .catch(() => {
+          alert('err')
+        })
     }
   }
 }
