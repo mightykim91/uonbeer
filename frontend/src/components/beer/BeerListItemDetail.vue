@@ -10,9 +10,9 @@
       <!-- beer info -->
       <div class="beer-info">
         <p class="info-title">맥주 정보</p>
-        <p>스타일 : {{ item.style }}</p>
-        <p>지역 : {{ item.country }}
-          <span v-if="item.state">, {{ item.state }}</span>
+        <p>스타일 : Indian Pale Ale</p>
+        <p>지역 : {{ item.country }},
+          <span v-if="item.state"> {{ item.state }}</span>
         </p>
         <p>도수 : {{ item.abv }}</p>
       </div>
@@ -53,11 +53,7 @@
       <!-- review list -->
       <div v-if="!isReviewCreate" class="review-list-wrap">
         <!-- when reviews -->
-        <div v-if="beerReviewArray.length">
-          <div v-for="reviews in beerReviewArray" :key="reviews.id">
-            {{reviews[0].content}}
-          </div>
-        </div>
+        <div v-if="beerReviewArray.length"></div>
 
         <div v-else class="no-review-wrap">
           작성된 리뷰가 없습니다. <br>
@@ -71,7 +67,6 @@
 
 <script>
 import BeerReviewCreate from '@/components/beer/BeerReviewCreate'
-import api from '@/api/api'
 
 export default {
   name: 'BeerListItemDetail',
@@ -87,13 +82,8 @@ export default {
     }
   },
 
-  created() {
-    console.log(this.$store.state.beer.beerReviewArray)
-  },
-
   computed: {
     item() {
-      this.fetchReview()
       return this.$store.state.beer.beerItem
     },
     beerReviewArray() {
@@ -104,13 +94,6 @@ export default {
   methods: {
     toggleReview() {
       this.isReviewCreate = !this.isReviewCreate
-    },
-    fetchReview() {
-      api.getReviewByBeer({ beer: this.$store.state.beer.beerItem.id})
-        .then((res) => {
-          this.$store.state.beer.beerReviewArray.push(res.data)
-        })
-        .catch(()=> alert('err'))
     }
   }
 }
