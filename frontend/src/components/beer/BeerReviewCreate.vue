@@ -65,7 +65,7 @@ export default {
     onClickReviewCreate() {
       api.ReviewCreate({rate: this.rate, content: this.content, auth: this.$cookies.get('auth'), beer:this.itemId})
         .then((res)=>{
-          console.log(res)
+          this.$store.state.beer.beerReviewArray.push(res.data)
           this.$emit('toggle-review')
         })
         .catch(() => {
