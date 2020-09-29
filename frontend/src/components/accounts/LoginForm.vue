@@ -104,14 +104,13 @@ export default {
                 api.login({email: this.email, password: this.password})
                     .then((res) => {
                         // 이메일 기억하기
-                        console.log(res)
                         if (this.rememberMe) {
                             localStorage.email = this.email
                         }
 
                         // 쿠키 설정 및 redirect
                         this.$cookies.set('auth', res.data.key)
-                        this.$cookies.set('username', res.data.user.username)
+                        this.$cookies.set('username', res.data.username)
                         this.$store.commit('common/toggleCookie')
                         this.$router.push('/')
                     }).catch(() => {
