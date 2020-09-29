@@ -8,6 +8,12 @@ export default {
     showSidebar: false,
     showModalMain: false,
   },
+
+  getters: {
+    isAuthed(state) {
+      return state.cookie | cookies.get('auth')
+    }
+  },
   
   mutations: {
     toggleCookie(state) {
