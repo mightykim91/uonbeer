@@ -55,7 +55,7 @@
         <!-- when reviews -->
         <div v-if="beerReviewArray.length">
           <div v-for="reviews in beerReviewArray" :key="reviews.id">
-            {{reviews[0].content}}
+            {{reviews.author}} 가 말했다  '{{ reviews.rate}}점 {{ reviews.content}}'
           </div>
         </div>
 
@@ -71,7 +71,6 @@
 
 <script>
 import BeerReviewCreate from '@/components/beer/BeerReviewCreate'
-import api from '@/api/api'
 
 export default {
   name: 'BeerListItemDetail',
@@ -87,13 +86,8 @@ export default {
     }
   },
 
-  created() {
-    console.log(this.$store.state.beer.beerReviewArray)
-  },
-
   computed: {
     item() {
-      this.fetchReview()
       return this.$store.state.beer.beerItem
     },
     beerReviewArray() {
@@ -105,13 +99,6 @@ export default {
     toggleReview() {
       this.isReviewCreate = !this.isReviewCreate
     },
-    fetchReview() {
-      api.getReviewByBeer({ beer: this.$store.state.beer.beerItem.id})
-        .then((res) => {
-          this.$store.state.beer.beerReviewArray.push(res.data)
-        })
-        .catch(()=> alert('err'))
-    }
   }
 }
 </script>
