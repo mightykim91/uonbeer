@@ -7,8 +7,7 @@
     <div
       v-if="show"
       @click="onClickMenu"
-      id="menu-btn"
-      class="flex-center">
+      id="menu-btn">
         <i class="fas fa-bars"></i>
     </div>
 
@@ -17,24 +16,23 @@
       v-if="show"
       @click="onClickLink('/')"
       class="nav-logo flex-center">
-      LOGO HERE
+      U WANT BEER
     </div>
 
     <!-- auth buttons pc && not authed -->
     <div
       v-if="show && !isAuthed"
       class="hide-on-mobile flex-center">
-      <div @click="onClickLink('/auth/signup')">회원가입</div>
       <div
         @click="onClickLink('/auth/login')"
-        class="nav-login-btn flex-center">로그인</div>
+        class="base-btn">로그인</div>
     </div>
 
     <!-- user button authed || mobile  -->
     <div
       v-if="show"
       @click="onClickUser"
-      :class="[ isAuthed ? '' : 'show-on-mobile', 'nav-user-button flex-center']">
+      :class="[ isAuthed ? '' : 'show-on-mobile', 'nav-user-icon']">
       <i class="fas fa-user-circle"></i>
     </div>
 
@@ -51,10 +49,6 @@
           class="user-dropdown-item">로그아웃</div>
       </div>
       <div v-else>
-        <div
-          @click="onClickLink('/auth/signup')"
-          class="user-dropdown-item">회원가입
-        </div>
         <div
           @click="onClickLink('/auth/login')"
           class="user-dropdown-item">로그인
@@ -83,7 +77,7 @@ export default {
   computed: {
     isAuthed() {
       return !!this.$cookies.get('auth') | this.$store.state.common.cookie
-    }
+    },
   },
 
   methods: {
@@ -142,9 +136,10 @@ export default {
   padding: 0 10vw;
 
   border-bottom: 1px solid lightgrey;
-  background-color: #333333;
-  background-image: $gradient-main;
-  color: whitesmoke;
+  background-color: white;
+  // background-color: #333333;
+  // background-image: $gradient-main;
+  // color: whitesmoke;
   font-size: 0.8rem;
 
   transition: ease-out 200ms;
@@ -162,45 +157,24 @@ export default {
 .nav-logo {
   width: 150px;
   height: $nav-height - 15;
-  border: 3px solid $highlight-color;
-  background: black;
-  color: white;
   font-weight: bolder;
 }
 
 #menu-btn {
   @extend .flex-between;
   height: $nav-height - 10;
-  width: 116px;
+  width: 30px;
   font-size: 1.2rem;
   text-align: left;
-  transition: ease-in-out 300ms;
 
   &:hover {
-    cursor: pointer;
-    color: $highlight-color;
+      cursor: pointer;
   }
 }
 
-.nav-login-btn {
-  margin-left: 10px;
-
-  height: $nav-height - 10;
-  width: 60px;
-  border-radius: 20px;
-  background-color: #555555;
-  color: white;
-  transition: ease-out 200ms;
-
-  &:hover {
-    background-image: none;
-    background-color: $highlight-color;
-  }
-}
-
-.nav-user-button {
-  width: 45px;
-  font-size: 1.5rem;
+.nav-user-icon {
+  margin-right: 10px;
+  font-size: 1.3rem;
 }
 
 .user-dropdown-box {

@@ -9,6 +9,12 @@ export default {
     showModalMain: false,
   },
 
+  getters: {
+    isAuthed(state) {
+      return state.cookie | cookies.get('auth')
+    }
+  },
+
   mutations: {
     toggleCookie(state) {
       state.cookie = !state.cookie
