@@ -28,7 +28,6 @@ ldap3==2.7
 MarkupSafe==1.1.1
 matplotlib==3.3.1
 mitmproxy==5.2
-mysqlclient==2.0.1
 numpy==1.19.2
 oauthlib==3.1.0
 pandas==1.1.2
