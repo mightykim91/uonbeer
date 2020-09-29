@@ -3,7 +3,7 @@
     <div class="header-msg">
       세상의 모든 맥주를
       <br class="show-on-mobile">
-      검색해보세요!
+      검색해보세요
     </div>
     <search-bar></search-bar>
   </div>
