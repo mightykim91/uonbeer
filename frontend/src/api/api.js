@@ -64,5 +64,11 @@ export default {
             },
             headers: { Authorization: `Token ${data.auth}`}
         })
+    },
+    getReviewByBeer(data) {
+        return axios({
+            url: 'review/'+data.beer+'/all',
+            method: 'get',
+        })
     }
 }
