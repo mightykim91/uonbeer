@@ -43,7 +43,7 @@ export default {
         return axios({
             url: 'beer/search',
             method: 'get',
-            params: { keyword: data.keyword }
+            params: { keyword: data.keyword, style: data.style, country: data.country, abvmax: data.abvmax, abvmin: data.abvmin}
         })
     },
     getSingleBeer(data) {
