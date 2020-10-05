@@ -9,6 +9,19 @@
       :class="[ keyword ? 'active-icon' : '', 'search-btn flex-center']">
         <i class="fas fa-search"></i>
     </div>
+    <select v-model="style">
+      <option>all</option>
+      <option>Lager</option>
+      <option>Ale</option>
+      <option>etc</option>
+    </select>
+    <select v-model="country">
+      <option>all</option>
+      <option>KR</option>
+      <option>etc</option>
+    </select>
+    <input type="number" v-model="abvmax">
+    <input type="number" v-model="abvmin">
   </div>
 </template>
 
@@ -21,19 +34,23 @@ export default {
   data() {
     return {
       keyword: null,
+      style: 'all',
+      country: 'all',
+      abvmax: 100,
+      abvmin: 0,
     }
   },
 
   methods: {
     onSubmit() {
       if (this.keyword) {
-        api.search({ keyword: this.keyword
+        api.search({ keyword: this.keyword, style: this.style, country: this.country, abvmax: this.abvmax, abvmin: this.abvmin
         }).then((res) => {
           console.log(res)
           if (res.status === 200) {
             this.$store.dispatch('search/fetchSearchResult', res)
           } else {
-            alert('결과없음')
+            alert("찾으시는 맥주가 없습니다 ㅠㅠ")
             this.$store.dispatch('search/fetchSearchResult', res)
           }
         }).catch(() => alert('error'))
