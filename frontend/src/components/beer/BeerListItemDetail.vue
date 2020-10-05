@@ -7,6 +7,10 @@
 
     <div
       class="beer-content-box">
+      <!-- beer img -->
+      <div class="beer-img flex-center">
+        <img :src="item.image_url? item.image_url:'asdf'">
+      </div>
       <!-- beer info -->
       <div class="beer-info">
         <p class="info-title">맥주 정보</p>
@@ -16,21 +20,24 @@
         </p>
         <p>도수 : {{ item.abv }}</p>
       </div>
-
-      <!-- beer graph -->
-      <div class="beer-graph flex-center">
-        chart or something
-      </div>
     </div>
 
     <!-- review -->
     <div class="review-wrap">
       <div class="flex-between">
-
-        <div v-if="!isReviewCreate" class="info-title">
-          리뷰 {{ item.rate }}
-          <span style="margin-left: 10px;">
-            {{ item.reviewCount }}개의 리뷰가 있습니다.</span>
+        <div v-if="beerReviewArray.length">
+          <div v-if="!isReviewCreate" class="info-title">
+            평점 {{ avgRate }}
+            <span style="margin-left: 10px;">
+              {{ beerReviewArray.length }}개의 리뷰가 있습니다.</span>
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="!isReviewCreate" class="info-title">
+            평점 제공 불가
+            <span style="margin-left: 10px;">
+              {{ 1 - beerReviewArray.length }}개의 리뷰가 더 필요해요. </span>
+          </div>        
         </div>
 
         <div v-if="isReviewCreate" class="info-title">리뷰 작성</div>
@@ -53,9 +60,14 @@
       <!-- review list -->
       <div v-if="!isReviewCreate" class="review-list-wrap">
         <!-- when reviews -->
-        <div v-if="beerReviewArray.length">
-          <div v-for="reviews in beerReviewArray" :key="reviews.id">
-            {{reviews.author}} 가 말했다  '{{ reviews.rate}}점 {{ reviews.content}}'
+        <div v-if="beerReviewArray.length" style="display:flex!important; flex-direction: column; align-items:start">
+          <div v-for="reviews in beerReviewArray" :key="reviews.id" style="overflow: hidden">
+            <i
+              v-for="index in 5"
+              :key="index"
+              :class="[ reviews.rate >= index ? 'star-active' : '', 'fas fa-star']">
+            </i>
+            <i class="far fa-user" style="margin: 0 10px 0 30px;"></i><span style="margin-right: 50px">{{reviews.author}}</span> {{ reviews.content}}
           </div>
         </div>
 
@@ -83,11 +95,13 @@ export default {
     return {
       reviewContent: null,
       isReviewCreate: false,
+      avgRate: 0
     }
   },
 
   computed: {
     item() {
+      this.calavgRate()
       return this.$store.state.beer.beerItem
     },
     beerReviewArray() {
@@ -96,6 +110,11 @@ export default {
   },
 
   methods: {
+    calavgRate() {
+      let sum = 0
+      this.$store.state.beer.beerReviewArray.forEach((e) => { sum += e.rate})
+      this.avgRate = sum / this.$store.state.beer.beerReviewArray.length
+    },
     toggleReview() {
       this.isReviewCreate = !this.isReviewCreate
     },
@@ -136,9 +155,16 @@ export default {
     }
   }
 
-  &-graph {
+  &-img {
     background-color: #fefefe;
     border: 1px dashed lightgrey;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+    }
   }
 }
 
@@ -234,4 +260,8 @@ export default {
   }
 }
 
+//별점 색깔
+.star-active {
+  color: $highlight-color !important;
+}
 </style>
