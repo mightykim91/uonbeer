@@ -41,7 +41,7 @@
       <!-- wish list -->
       <beer-list v-if="selectedTab === 3"></beer-list>
       <!-- calendar -->
-
+      <user-calendar v-if="selectedTab === 4"></user-calendar>
     </div>
 
   </div>
@@ -51,7 +51,7 @@
 // components
 import BeerList from '@/components/beer/BeerList'
 import BeerReviewList from '../../components/beer/BeerReviewList'
-
+import UserCalendar from '@/components/userpage/UserCalendar'
 
 export default {
   name: 'UserPageView',
@@ -59,6 +59,7 @@ export default {
   components: {
     'beer-list': BeerList,
     'beer-review-list': BeerReviewList,
+    'user-calendar': UserCalendar
   },
 
   data() {
