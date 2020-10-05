@@ -5,4 +5,4 @@ class BeerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Beer
-        fields = ["id", "name", "name_kr", "style", "country", "abv"]
+        fields = ["id", "name", "name_kr", "brew_name", "style", "country", "abv", "image_url"]

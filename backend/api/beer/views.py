@@ -6,12 +6,18 @@ from rest_framework.response import Response
 from .models import Beer
 
 from .serializers import BeerSerializer
+
+from .firebase import getURL
 # Create your views here.
 
 #Return all beers
 @api_view(['GET'])
 def getAllBeer(request):
     beers = Beer.objects.all()
+
+    #데이터 전부다 들어오면 해제
+    # for beer in beers:
+    #     beer.image_url = getURL(beer.image_file_name)
     serializer = BeerSerializer(beers, many=True)
     return Response(serializer.data)
 
@@ -20,6 +26,7 @@ def getAllBeer(request):
 @api_view(['GET'])
 def getSingleBeer(request, beer_id):
     beer = get_object_or_404(Beer, pk=beer_id)
+    beer.image_url = getURL(beer.image_file_name)
     serializer = BeerSerializer(beer)
     return Response(serializer.data)
 
