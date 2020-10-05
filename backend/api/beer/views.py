@@ -87,10 +87,11 @@ def searchBeer(request):
         rst = rst.exclude(Q(style='Lager') | Q(style='Ale'))
     elif style != 'all':
         rst = rst.filter(style=style)
+        print(rst)
     
     if country == 'etc':
         rst = rst.exclude(country = 'KR')
-    elif style != 'all':
+    elif country != 'all':
         rst = rst.filter(country = country)
 
     serializer = BeerSerializer(rst, many=True)
