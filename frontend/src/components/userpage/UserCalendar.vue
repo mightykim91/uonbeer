@@ -18,9 +18,6 @@ export default {
       attributes: [
         {
           key: 'today',
-          // dot: {
-          //   color: 'red'
-          // },
           highlight: true,
           popover: { label: '맥주와 함께하기 좋은 오늘입니다!' },
           dates: new Date(),
