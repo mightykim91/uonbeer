@@ -49,7 +49,6 @@ export default {
     fetchReview() {
       api.getReviewByBeer({ beer: this.beerId})
         .then((res) => {
-          console.log(res)
           this.$store.state.beer.beerReviewArray = res.data
         })
         .catch(()=> alert('err'))

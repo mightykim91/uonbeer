@@ -62,15 +62,30 @@ def deleteBeer(request, beer_id):
 def searchBeer(request):
     #Get keyword from query string
     keyword = request.GET.get('keyword').replace(" ", "")
+    style = request.GET.get('style')
+    country = request.GET.get('country')
+    abvmax = request.GET.get('abvmax')
+    abvmin = request.GET.get('abvmin')
     #Get all beer
     beer = Beer.objects.all()
     #Create nospace column and add beer name after removing all spaces
     preprocess = beer.annotate(
         nospace1=Func( F('name_kr'), Value(" "), Value(""), function="replace" ), 
         nospace2=Func( F('name'), Value(" "), Value(""), function="replace"),
+        lowercase=Func( F('name'), function="lower")
         )
-    #Search beer for keyword 
-    rst = preprocess.filter(Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword))
+    #Search beer for keyword, country, style, abv range
+    rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
+    if style == 'etc':
+        rst = rst.exclude(Q(style='Lager') | Q(style='Ale'))
+    elif style != 'all':
+        rst = rst.filter(style=style)
+    
+    if country == 'etc':
+        rst = rst.exclude(country = 'KR')
+    elif style != 'all':
+        rst = rst.filter(country = country)
+
     serializer = BeerSerializer(rst, many=True)
     if serializer.data:
         return Response(serializer.data)
