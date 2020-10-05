@@ -27,7 +27,7 @@ export default {
         return {
             chat: '',
             messages: [],
-            roomId: 10,
+            roomId: 10, //Room ID MUST BE MODIFED
             userId: '',
             
         }
@@ -41,9 +41,10 @@ export default {
         // socket.on('join', (msg) => {
         //     this.messages.push(msg)
         // })
-        socket.on('leave', (msg) => {
-            this.messages.push(msg)
-        })
+        // socket.on('leave', (msg) => {
+            
+        //     this.messages.push(msg)
+        // })
         socket.on('chat', (userId, msg) => {
             this.messages.push(`${userId}: ${msg}`)
         })
@@ -53,6 +54,8 @@ export default {
         const myVideo = document.createElement('video')
 
         myVideo.muted = true
+
+        const peers = {}
 
         navigator.mediaDevices.getUserMedia({
             video: true, 
@@ -74,6 +77,13 @@ export default {
             })
         })
 
+        socket.on('leave', (userId, msg) => {
+            if (peers[userId]){
+                peers[userId].close()
+            }
+            this.messages.push(msg)
+        })
+
         function connectToUser(userId, stream){
             const call = myPeer.call(userId, stream)
             const video = document.createElement('video')
@@ -83,6 +93,7 @@ export default {
             call.on('close', () => {
                 video.remove()
             })
+            peers[userId] = call
         }
 
         function addVideoStream(video, stream){

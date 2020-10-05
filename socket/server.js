@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
     socket.on('leave', (roomId, userId) => {
         socket.leave(roomId, () => {
             msg = userId + " 님이 방에서 나갔습니다."
-            io.to(roomId).emit('leave', msg)
+            io.to(roomId).emit('leave', userId, msg)
         })
     })
 
