@@ -32,7 +32,7 @@ export default {
 
   props: {
     item: Object,
-    beerId: Number
+    beerId: Number,
   },
 
   computed: {
@@ -57,7 +57,6 @@ export default {
       this.$store.commit('beer/setBeerItem', this.item)
       this.$store.state.beer.beerReviewArray = []
       this.fetchReview()
-      // console.log(this.$store.state.beer.beerReviewArray)
       this.$store.commit('common/toggleShowModal')
     },
   },
