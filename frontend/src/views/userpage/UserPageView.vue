@@ -41,7 +41,7 @@
       <!-- wish list -->
       <beer-list v-if="selectedTab === 3"></beer-list>
       <!-- calendar -->
-      <user-calendar v-if="selectedTab === 4"></user-calendar>
+      <user-calendar v-show="selectedTab === 4"></user-calendar>
     </div>
 
   </div>
