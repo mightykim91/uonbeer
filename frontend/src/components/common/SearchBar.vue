@@ -97,6 +97,7 @@ export default {
         await api.search({ keyword: this.keyword, style: this.style, country: this.country, abvmax: this.abv[1], abvmin: this.abv[0], limit: this.limit
         }).then((res) => {
           if (res.status === 200) {
+            console.log(res)
             this.$store.dispatch('search/fetchSearchResult', res)
             this.$store.dispatch('search/fetchSearchOrNot', null)
           } else if (res.status === 202) {
