@@ -3,15 +3,20 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import pickle
 from beer.models import Beer
+from review.models import ReviewModel
 from beer.serializers import BeerSerializer
 from api.settings import ALGO_PATH
 # Create your views here.
 
 @api_view(['GET'])
 def svd(request):
+    drink_list = ReviewModel.objects.filter(author = request.user).values_list('beer', flat=True).order_by('-beer')
+    # drink_list = [3,8,16,22]
+    candidate_beers = [i for i in range(1,10900) if i not in drink_list] # 후보 beer_id 리스트
+
+    # print(reviews)
     with open(ALGO_PATH, 'rb') as file:
         algo = pickle.load(file)
-    candidate_beers = [1,3,4] # 안먹어본 beer_id 리스트
 
     predictions = [algo.predict("user_id가 들어갈 예정", beer_id) for beer_id in candidate_beers]
 

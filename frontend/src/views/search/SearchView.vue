@@ -3,9 +3,9 @@
     <div class="search-header flex-center">
         <search-bar></search-bar>
       <div class="search-filter-box flex-center">
-        필터 옵션 (개발 중)
       </div>
-    </div>    
+    </div>
+    <div class="flex-center show-on-mobile" style="height: 120px;">최근 검색어</div>
     <h2 v-if="isSearchResult">
       {{ keyword }} 검색결과: {{ searchResultArray.length }}건
     </h2>
@@ -51,15 +51,13 @@ export default {
 .search-header {
   height: 200px;
   margin-top: 40px;
-  // background-image: $gradient-main;
+  background-image: $gradient-green;
   flex-direction: column;
   border-bottom: 1px solid lightgrey;
 }
 
 .search-filter-box {
-  // temp
-  height: 50px;
-  color: blue; 
+  height: 80px;
 }
 
 @media screen and (max-width: 768px) {
