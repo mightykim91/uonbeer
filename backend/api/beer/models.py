@@ -14,9 +14,11 @@ class Beer(models.Model):
     #양조장 이름
     brew_name = models.CharField(max_length=100, null=True)
     #유형
-    style = models.CharField(max_length=50)
+    style = models.CharField(max_length=50, null=True)
     #생산국
-    country = models.CharField(max_length=50)
+    country = models.CharField(max_length=50, null=True)
+    #카테고리
+    category = models.CharField(max_length=50, null=True)
     #도수
     abv = models.FloatField(default=0, null=True)
     #이미지 파일 이름
