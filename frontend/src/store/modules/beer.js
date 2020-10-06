@@ -3,6 +3,7 @@ export default {
 
   state: {
     beerItem: null,
+    beerImg: 0,
     beerReviewArray: [],
   },
 

@@ -81,6 +81,7 @@ def searchBeer(request):
         nospace2=Func( F('name'), Value(" "), Value(""), function="replace"),
         lowercase=Func( F('name'), function="lower")
         )
+    print(preprocess)
     #Search beer for keyword, country, style, abv range
     rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
     if style == 'Etc':
