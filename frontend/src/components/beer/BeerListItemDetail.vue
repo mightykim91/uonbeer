@@ -8,12 +8,19 @@
     <div
       class="beer-content-box">
       <!-- beer img -->
-      <div class="beer-img flex-center">
+      <div class="beer-img">
         <img :src="item.image_url? item.image_url:'asdf'">
       </div>
       <!-- beer info -->
       <div class="beer-info">
-        <p class="info-title">맥주 정보</p>
+        <div class="info-title flex-between">
+          <div>맥주 정보</div>
+          <div class="video-call-btn">
+          <span>
+            <i class="fas fa-video"></i> 화상채팅 입장하기
+            </span>
+          </div>
+        </div>
         <p>스타일 : {{ item.style }}</p>
         <p>지역 : {{ item.country }}
           <span v-if="item.state">, {{ item.state }}</span>
@@ -133,7 +140,6 @@ export default {
 @import '@/assets/style/base';
 
 .beer {
-
   &-name {
     margin-bottom: 10px;
     font-size: 1.8rem;
@@ -152,6 +158,7 @@ export default {
   }
 
   &-info {
+    width: 23vw;
     padding: 5px;
     text-align: left;
     background-color: white;
@@ -163,6 +170,10 @@ export default {
   }
 
   &-img {
+    @extend .flex-center;
+    width: 23vw;
+    margin-right: 30px;
+    min-height: 300px;
     background-color: #fefefe;
     border: 1px dashed lightgrey;
 
@@ -192,11 +203,11 @@ export default {
   display: flex;
   background: white;
 
-  div {
-    width: 30vw;
-    height: 250px;
-    // border: 1px solid salmon;
-  }
+  // div {
+  //   width: 30vw;
+  //   // height: 250px;
+  //   // border: 1px solid salmon;
+  // }
 }
 
 .review {
@@ -247,6 +258,12 @@ export default {
   }
 }
 
+.video-call-btn {
+  @extend .base-btn;
+  font-weight: normal;
+}
+
+
 .no-review-wrap {
   padding: 50px;
 }
@@ -264,6 +281,10 @@ export default {
     div {
       width: auto;
     }
+  }
+
+  .beer-img {
+    margin: 0;
   }
 }
 
