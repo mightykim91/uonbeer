@@ -7,6 +7,7 @@ urlpatterns = [
     path('new/', views.addNewBeer), #Add New Beer
     path('edit/<int:beer_id>/', views.editBeerInfo), #Edit Beer Information
     path('delete/<int:beer_id>/', views.deleteBeer), #Delete Beer
-    re_path(r'^search/$', views.searchBeer), #Search Beer
+    re_path(r'^search$', views.searchBeer), #Search Beer
+    # path('csv/', views.saveCSV), #OneTimeCSV 
 ]
 
