@@ -88,6 +88,13 @@ export default {
     height: 220px;
     background-image: $gradient-main;
     overflow: hidden;
+    
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+    }
   }
 }
 
