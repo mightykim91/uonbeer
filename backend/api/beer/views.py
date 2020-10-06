@@ -83,15 +83,15 @@ def searchBeer(request):
         )
     #Search beer for keyword, country, style, abv range
     rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
-    if style == 'etc':
+    if style == 'Etc':
         rst = rst.exclude(Q(style='Lager') | Q(style='Ale'))
-    elif style != 'all':
+    elif style != 'All':
         rst = rst.filter(style=style)
         print(rst)
     
-    if country == 'etc':
+    if country == 'Etc':
         rst = rst.exclude(country = 'KR')
-    elif country != 'all':
+    elif country != 'All':
         rst = rst.filter(country = country)
 
     serializer = BeerSerializer(rst, many=True)
