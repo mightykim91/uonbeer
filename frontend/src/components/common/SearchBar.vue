@@ -87,23 +87,24 @@ export default {
       style: 'All',
       country: 'All',
       abv: [0, 30],
+      limit: 12,
       showFilter: false,
     }
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       if (this.keyword) {
-        api.search({ 
-          keyword: this.keyword,
-          style: this.style,
-          country: this.country,
-          abvmax: this.abv[1],
-          abvmin: this.abv[0]
+        await api.search({ keyword: this.keyword, style: this.style, country: this.country, abvmax: this.abv[1], abvmin: this.abv[0], limit: this.limit
         }).then((res) => {
           if (res.status === 200) {
             console.log(res)
             this.$store.dispatch('search/fetchSearchResult', res)
-          } else {
+            this.$store.dispatch('search/fetchSearchOrNot', null)
+          } else if (res.status === 202) {
+            this.$store.dispatch('search/fetchSearchResult', res)
+            this.$store.dispatch('search/fetchSearchOrNot', true)
+          }
+            else {
             alert("찾으시는 맥주가 없습니다 ㅠㅠ")
             this.$store.dispatch('search/fetchSearchResult', res)
           }

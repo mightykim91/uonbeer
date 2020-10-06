@@ -5,6 +5,7 @@ import store from './store'
 import cookies from 'vue-cookies'
 import vmodal from 'vue-js-modal'
 import VCalendar from 'v-calendar'
+import infiniteScroll from 'vue-infinite-scroll'
 
 require('@/assets/scss/main.scss')
 
@@ -13,8 +14,8 @@ Vue.use(vmodal)
 
 // v-calendar
 Vue.use(VCalendar)
-//쿠키 만료 1일
-Vue.$cookies.config("1d")
+// infinite scroll
+Vue.use(infiniteScroll)
 
 Vue.config.productionTip = false
 
