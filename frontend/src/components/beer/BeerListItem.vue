@@ -6,7 +6,7 @@
       @click="onClickBeerItem"
       class="beer-img-wrap">
       <img
-        :src="getRandomBeerImg()" alt="pic" class="beer-img">
+        :src="item.image_url? item.image_url:getRandomBeerImg()" alt="pic" class="beer-img">
     </div>
 
     <!-- beer info -->
@@ -79,7 +79,7 @@ export default {
 
 .beer-img {
   position: relative;
-  top: -200px;
+  // top: -200px;
   left: 10px;
   z-index: 1;
 
@@ -88,6 +88,13 @@ export default {
     height: 220px;
     background-image: $gradient-main;
     overflow: hidden;
+    
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+    }
   }
 }
 
@@ -161,4 +168,5 @@ export default {
     max-width: 100vw;
   }
 }
+
 </style>

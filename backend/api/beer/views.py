@@ -79,6 +79,7 @@ def searchBeer(request):
     country = request.GET.get('country')
     abvmax = request.GET.get('abvmax')
     abvmin = request.GET.get('abvmin')
+    limit = int(request.GET.get('limit'))
     #Get all beer
     beer = Beer.objects.all()
     #Create nospace column and add beer name after removing all spaces
@@ -88,28 +89,37 @@ def searchBeer(request):
         lowercase=Func( F('name'), function="lower")
         )
     #Search beer for keyword, country, style, abv range
-    rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | (Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax)))
-    print(rst)
-    
-    if style == 'etc':
+    rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
+    if style == 'Etc':
         rst = rst.exclude(Q(style='Lager') | Q(style='Ale'))
-    elif style != 'all':
+    elif style != 'All':
         rst = rst.filter(style=style)
     
-    
-    if country == 'etc':
+    if country == 'Etc':
         rst = rst.exclude(country = 'KR')
-    elif country != 'all':
+    elif country != 'All':
         rst = rst.filter(country = country)
+    
+    end = False
+
+    if len(rst) <= 12 and len(rst):
+        end = True
+    elif len(rst) >= limit:
+        rst = rst[limit-12:limit]
+    else:
+        rst = rst[limit-12:]
+        end = True
 
     for beer in rst:
         beer.image_url = getURL(beer.image_file_name)
 
     serializer = BeerSerializer(rst, many=True)
-    if serializer.data:
+    if serializer.data and not end:
         return Response(serializer.data)
+    elif serializer.data:
+        return Response(serializer.data, status=202)
     else:
-        return Response({"message": "찾으시는 맥주가 없습니다 ㅠㅠ"}, status=204)
+        return Response(status=204)
     
     return Response(status=400)
 

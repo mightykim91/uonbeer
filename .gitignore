@@ -2,9 +2,6 @@
 node_modules
 /dist
 
-algo.pkl
-beers.csv
-
 # local env files
 .env.local
 .env.*.local

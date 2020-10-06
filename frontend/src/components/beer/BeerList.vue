@@ -1,8 +1,10 @@
 <template>
-  <div class="flex-center beer-list-box">
-    <div 
-      v-for="(item, index) in searchResultArray" :key="index">
-      <beer-list-item :item="item" :beerId="item.id"></beer-list-item>
+  <div>
+    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="flex-center beer-list-box">
+      <div 
+        v-for="(item, index) in searchResultArray" :key="index">
+        <beer-list-item :item="item" :beerId="item.id"></beer-list-item>
+      </div>
     </div>
   </div>
 </template>
@@ -10,9 +12,19 @@
 <script>
 // components
 import BeerListItem from './BeerListItem'
+import api from '@/api/api'
+
+// let count = 0
 
 export default {
   name: 'BeerList',
+
+  data() {
+    return {
+      limit: 12,
+      busy: false
+    }
+  },
 
   components: {
     'beer-list-item': BeerListItem,
@@ -23,6 +35,35 @@ export default {
       return this.$store.state.search.searchResultArray
     }
   },
+
+  methods: {
+    searchMore() {
+       api.search({ keyword: this.$store.state.search.keyword, style: this.$store.state.search.style, country: this.$store.state.search.country, abvmax: this.$store.state.search.abv[1], abvmin: this.$store.state.search.abv[0], limit: this.limit
+        }).then((res) => {
+          if (res.status === 200) {
+            this.$store.dispatch('search/fetchMoreResult', res)
+            this.$store.dispatch('search/fetchSearchOrNot', null)
+          } else if (res.status == 202) {
+            this.$store.dispatch('search/fetchMoreResult', res)
+            this.$store.dispatch('search/fetchSearchOrNot', true) 
+          }
+        }).catch(() => alert('error'))
+    },
+    loadMore: async function() {
+      if (this.$store.state.search.searchResultArray.length&&!this.$store.state.search.noMoreSearch) {
+        this.busy = true;
+        await setTimeout(() => {
+        this.searchMore()
+        this.limit += 12
+        this.busy = false;
+        }, 1000);
+      }
+    },
+    
+    created() {
+      this.loadMore();
+    }
+  }
 }
 </script>
 

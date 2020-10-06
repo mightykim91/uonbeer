@@ -8,12 +8,17 @@
     <div
       class="beer-content-box">
       <!-- beer img -->
-      <div class="beer-img flex-center">
+      <div class="beer-img">
         <img :src="item.image_url? item.image_url:'asdf'">
       </div>
       <!-- beer info -->
       <div class="beer-info">
-        <p class="info-title">맥주 정보</p>
+        <div class="info-title flex-between">
+          <div>맥주 정보</div>
+          <div class="video-call-btn">
+            <i class="fas fa-video"></i>. 화상채팅 입장하기
+          </div>
+        </div>
         <p>스타일 : {{ item.style }}</p>
         <p>지역 : {{ item.country }}
           <span v-if="item.state">, {{ item.state }}</span>
@@ -24,29 +29,36 @@
 
     <!-- review -->
     <div class="review-wrap">
-      <div class="flex-between">
-        <div v-if="beerReviewArray.length">
-          <div v-if="!isReviewCreate" class="info-title">
-            평점 {{ avgRate }}
+      <div class="flex-between" style="margin-bottom: 15px;">
+
+        <!-- title: review list -->
+        <div v-if="!isReviewCreate" class="info-title">
+          <div>
+            평점 {{ avgRate || 0 }}
             <span style="margin-left: 10px;">
-              {{ beerReviewArray.length }}개의 리뷰가 있습니다.</span>
-          </div>
-        </div>
-        <div v-else>
-          <div v-if="!isReviewCreate" class="info-title">
-            평점 제공 불가
-            <span style="margin-left: 10px;">
-              {{ 1 - beerReviewArray.length }}개의 리뷰가 더 필요해요. </span>
+              {{ beerReviewArray.length }}개의 리뷰가 있습니다.
+            </span>
           </div>        
+          
+          <!-- <div v-else class="info-title">
+            <span style="margin-left: 10px;">
+              리뷰가 없어 평점을 제공할 수 없습니다.
+            </span>
+          </div> -->
         </div>
 
+        <!-- title: review create -->
         <div v-if="isReviewCreate" class="info-title">리뷰 작성</div>
 
         <div 
           @click="toggleReview"
           class="base-btn">
-          <span v-if="isReviewCreate"><i class="fas fa-list"></i> 리뷰 목록</span>
-          <span v-else><i class="fas fa-pen"></i> 리뷰 작성</span>
+          <span v-if="isReviewCreate">
+            <i class="fas fa-list"></i> 리뷰 목록
+          </span>
+          <span v-else>
+            <i class="fas fa-pen"></i> 리뷰 작성
+          </span>
         </div>
       </div>
 
@@ -126,7 +138,6 @@ export default {
 @import '@/assets/style/base';
 
 .beer {
-
   &-name {
     margin-bottom: 10px;
     font-size: 1.8rem;
@@ -139,12 +150,13 @@ export default {
       align-items: center;
 
       border-bottom: 1px solid black;
-      border-image-source: linear-gradient(to right, $highlight-color, crimson);
+      border-image-source: $gradient-green;
       border-image-slice: 60 30;
     }
   }
 
   &-info {
+    width: 23vw;
     padding: 5px;
     text-align: left;
     background-color: white;
@@ -156,6 +168,10 @@ export default {
   }
 
   &-img {
+    @extend .flex-center;
+    width: 23vw;
+    margin-right: 30px;
+    min-height: 300px;
     background-color: #fefefe;
     border: 1px dashed lightgrey;
 
@@ -185,11 +201,11 @@ export default {
   display: flex;
   background: white;
 
-  div {
-    width: 30vw;
-    height: 250px;
-    // border: 1px solid salmon;
-  }
+  // div {
+  //   width: 30vw;
+  //   // height: 250px;
+  //   // border: 1px solid salmon;
+  // }
 }
 
 .review {
@@ -240,6 +256,12 @@ export default {
   }
 }
 
+.video-call-btn {
+  @extend .base-btn;
+  font-weight: normal;
+}
+
+
 .no-review-wrap {
   padding: 50px;
 }
@@ -257,6 +279,10 @@ export default {
     div {
       width: auto;
     }
+  }
+
+  .beer-img {
+    margin: 0;
   }
 }
 
