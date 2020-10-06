@@ -16,9 +16,7 @@
         <div class="info-title flex-between">
           <div>맥주 정보</div>
           <div class="video-call-btn">
-          <span>
-            <i class="fas fa-video"></i> 화상채팅 입장하기
-            </span>
+            <i class="fas fa-video"></i>. 화상채팅 입장하기
           </div>
         </div>
         <p>스타일 : {{ item.style }}</p>
