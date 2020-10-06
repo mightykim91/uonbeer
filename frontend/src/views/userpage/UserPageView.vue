@@ -118,7 +118,7 @@ export default {
   align-items: center;
   background-color: #f2f2f2;
   // background-image: url('../../assets/img/header.jpg');
-  background-image: linear-gradient(to right bottom, #96abe4, #8ef3c4);
+  background-image: $gradient-green;
   // background-size: 100%;
 }
 

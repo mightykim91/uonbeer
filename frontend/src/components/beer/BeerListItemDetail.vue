@@ -24,29 +24,36 @@
 
     <!-- review -->
     <div class="review-wrap">
-      <div class="flex-between">
-        <div v-if="beerReviewArray.length">
-          <div v-if="!isReviewCreate" class="info-title">
-            평점 {{ avgRate }}
+      <div class="flex-between" style="margin-bottom: 15px;">
+
+        <!-- title: review list -->
+        <div v-if="!isReviewCreate" class="info-title">
+          <div>
+            평점 {{ avgRate || 0 }}
             <span style="margin-left: 10px;">
-              {{ beerReviewArray.length }}개의 리뷰가 있습니다.</span>
-          </div>
-        </div>
-        <div v-else>
-          <div v-if="!isReviewCreate" class="info-title">
-            평점 제공 불가
-            <span style="margin-left: 10px;">
-              {{ 1 - beerReviewArray.length }}개의 리뷰가 더 필요해요. </span>
+              {{ beerReviewArray.length }}개의 리뷰가 있습니다.
+            </span>
           </div>        
+          
+          <!-- <div v-else class="info-title">
+            <span style="margin-left: 10px;">
+              리뷰가 없어 평점을 제공할 수 없습니다.
+            </span>
+          </div> -->
         </div>
 
+        <!-- title: review create -->
         <div v-if="isReviewCreate" class="info-title">리뷰 작성</div>
 
         <div 
           @click="toggleReview"
           class="base-btn">
-          <span v-if="isReviewCreate"><i class="fas fa-list"></i> 리뷰 목록</span>
-          <span v-else><i class="fas fa-pen"></i> 리뷰 작성</span>
+          <span v-if="isReviewCreate">
+            <i class="fas fa-list"></i> 리뷰 목록
+          </span>
+          <span v-else>
+            <i class="fas fa-pen"></i> 리뷰 작성
+          </span>
         </div>
       </div>
 
@@ -139,7 +146,7 @@ export default {
       align-items: center;
 
       border-bottom: 1px solid black;
-      border-image-source: linear-gradient(to right, $highlight-color, crimson);
+      border-image-source: $gradient-green;
       border-image-slice: 60 30;
     }
   }

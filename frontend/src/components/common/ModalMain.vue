@@ -69,7 +69,7 @@ $modal-height: 600px;
     background-color: white;
 
     overflow: auto;
-    z-index: 5; 
+    z-index: 6; 
 
     animation: blend-in 400ms;
 
