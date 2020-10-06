@@ -10,7 +10,8 @@
       @keyup.enter="onSubmit"
       v-model="keyword"
       type="text"
-      class="search-input">
+      class="search-input"
+      autofocus>
     <div
       @click="onSubmit"
       :class="[ keyword ? 'active-icon' : '', 'search-btn flex-center']">

@@ -100,6 +100,7 @@ $modal-height: 600px;
     top: 0;
     left: 0;
     width: 100vw;
+    min-width: 100vw;
     height: 100vh;
   }
 }
