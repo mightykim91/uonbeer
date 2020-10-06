@@ -17,9 +17,13 @@ from .firebase import getURL
 def getAllBeer(request):
     beers = Beer.objects.all()
     #데이터 전부다 들어오면 해제
+    count = 0
     for beer in beers:
+        count += 1
+        print("assigning....", count)
         beer.image_url = getURL(beer.image_file_name)
-    print(beers)
+
+    print("assign Done")
     serializer = BeerSerializer(beers, many=True)
     return Response(serializer.data)
 
