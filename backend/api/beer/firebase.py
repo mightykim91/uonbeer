@@ -18,8 +18,11 @@ bucket = storage.bucket()
 
 def getURL(beer_name:str):
     image = bucket.get_blob(beer_name)
-    url = image.generate_signed_url(expiration=timedelta(minutes=1), version="v4")
-    return url
+    if image:
+        url = image.generate_signed_url(expiration=timedelta(minutes=1), version="v4")
+        return url
+    else:
+        return None
 
 
 
