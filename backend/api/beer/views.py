@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Beer
+import csv
+import pandas as pd
 
 from .serializers import BeerSerializer
 
@@ -14,10 +16,10 @@ from .firebase import getURL
 @api_view(['GET'])
 def getAllBeer(request):
     beers = Beer.objects.all()
-
     #데이터 전부다 들어오면 해제
-    # for beer in beers:
-    #     beer.image_url = getURL(beer.image_file_name)
+    for beer in beers:
+        beer.image_url = getURL(beer.image_file_name)
+    print(beers)
     serializer = BeerSerializer(beers, many=True)
     return Response(serializer.data)
 
@@ -82,17 +84,22 @@ def searchBeer(request):
         lowercase=Func( F('name'), function="lower")
         )
     #Search beer for keyword, country, style, abv range
-    rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
+    rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | (Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax)))
+    print(rst)
+    
     if style == 'etc':
         rst = rst.exclude(Q(style='Lager') | Q(style='Ale'))
     elif style != 'all':
         rst = rst.filter(style=style)
-        print(rst)
+    
     
     if country == 'etc':
         rst = rst.exclude(country = 'KR')
     elif country != 'all':
         rst = rst.filter(country = country)
+
+    for beer in rst:
+        beer.image_url = getURL(beer.image_file_name)
 
     serializer = BeerSerializer(rst, many=True)
     if serializer.data:
@@ -101,3 +108,41 @@ def searchBeer(request):
         return Response({"message": "찾으시는 맥주가 없습니다 ㅠㅠ"}, status=204)
     
     return Response(status=400)
+
+#Onetime API to save CSV(Finished)
+@api_view(['GET'])
+def saveCSV(request):
+    with open('beer/csv/beer.csv', mode='r', encoding='cp949') as beer_list:
+        dictionary = csv.DictReader(beer_list)
+        beer_df = pd.DataFrame(dictionary)
+
+        beers = []
+        for i in range(len(beer_df)):
+            beer = (beer_df['name'][i], 
+            beer_df['name_kr'][i],
+            beer_df['bre_name'][i],
+            beer_df['country'][i],
+            beer_df['category'][i],
+            beer_df['style'][i],
+            beer_df['abv'][i],
+            beer_df['image'][i])
+            
+            beers.append(beer)
+
+        # ADD TO DATABASE
+        beer_set = Beer.objects.all()
+        for beer in beers:
+            if not beer_set.filter(name=beer[0]).exists():
+                Beer.objects.create(
+                    name=beer[0],
+                    name_kr=beer[1],
+                    brew_name=beer[2],
+                    country=beer[3],
+                    category=beer[4],
+                    style=beer[5],
+                    abv=beer[6],
+                    image_file_name=beer[7]
+                )
+
+        return Response({'beer': beers},status=200)
+    
