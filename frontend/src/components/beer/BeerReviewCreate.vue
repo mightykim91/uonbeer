@@ -14,11 +14,11 @@
     </div>
     
     <!-- 사진 -->
-    <div class="review-pic-input-wrap">
+    <!-- <div class="review-pic-input-wrap">
       <div class="review-pic-input review-pic-sm">
         <i class="fas fa-plus"></i>
       </div>
-    </div>
+    </div> -->
 
     <!-- 본문 -->
     <div class="review-input-wrap">
