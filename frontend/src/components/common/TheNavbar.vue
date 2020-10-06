@@ -3,13 +3,12 @@
     :class="show ? '' : 'nav-hide'"
     id="nav">
   
-    <!-- menu button -->
-    <div
-      v-if="show"
-      @click="onClickMenu"
-      id="menu-btn">
-        <i class="fas fa-bars"></i>
-    </div>
+    <!-- menu button : mobile -->
+      <i
+        v-if="show"
+        @click="onClickMenu"
+        id="menu-btn"
+        class="fas fa-bars show-on-mobile"></i>
 
     <!-- logo -->
     <div
@@ -17,6 +16,11 @@
       @click="onClickLink('/')"
       class="nav-logo flex-center">
       U WANT BEER
+    </div>
+
+    <!-- menu : pc -->
+    <div class="hide-on-mobile">
+      
     </div>
 
     <!-- auth buttons pc && not authed -->
@@ -111,7 +115,7 @@ export default {
           this.$router.push('/')
           })
         .catch(() => alert('서버에러'))
-    }
+    },
   },
 
   mounted() {
@@ -137,9 +141,6 @@ export default {
 
   border-bottom: 1px solid lightgrey;
   background-color: white;
-  // background-color: #333333;
-  // background-image: $gradient-main;
-  // color: whitesmoke;
   font-size: 0.8rem;
 
   transition: ease-out 200ms;
@@ -161,11 +162,8 @@ export default {
 }
 
 #menu-btn {
-  @extend .flex-between;
-  height: $nav-height - 10;
-  width: 30px;
   font-size: 1.2rem;
-  text-align: left;
+  margin: 0 15px;
 
   &:hover {
       cursor: pointer;
@@ -173,7 +171,7 @@ export default {
 }
 
 .nav-user-icon {
-  margin-right: 10px;
+  margin-right: 15px;
   font-size: 1.3rem;
 }
 
@@ -198,11 +196,6 @@ export default {
 @media screen and (max-width: 768px) {
   #nav {
     padding: 0;
-  }
-
-  #menu-btn {
-    width: 45px;
-    justify-content: center;
   }
 
   .user-dropdown-box {
