@@ -7,6 +7,7 @@ $color-2: #4fd6ae;
 $color-3: #406cca;
 
 $gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
+$gradient-green: linear-gradient(to right bottom, #96abe4, #8ef3c4);
 
 @mixin fixed-background {
   position: fixed;

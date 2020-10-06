@@ -88,7 +88,7 @@ export default {
   overflow: hidden;
   transition: 350ms;
   background-image: $gradient-main;
-  z-index: 6;
+  z-index: 7;
 }
 
 .sidebar-show {
