@@ -8,6 +8,9 @@
 export default {
   name: 'BeerReviewList',
 
+  props: {
+    reviewArray: Array,
+  }
   
 }
 </script>

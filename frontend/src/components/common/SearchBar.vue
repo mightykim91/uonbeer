@@ -93,10 +93,15 @@ export default {
   methods: {
     onSubmit() {
       if (this.keyword) {
-        api.search({ keyword: this.keyword, style: this.style, country: this.country, abvmax: this.abv[1], abvmin: this.abv[0]
+        api.search({ 
+          keyword: this.keyword,
+          style: this.style,
+          country: this.country,
+          abvmax: this.abv[1],
+          abvmin: this.abv[0]
         }).then((res) => {
-          console.log(res)
           if (res.status === 200) {
+            console.log(res)
             this.$store.dispatch('search/fetchSearchResult', res)
           } else {
             alert("찾으시는 맥주가 없습니다 ㅠㅠ")
