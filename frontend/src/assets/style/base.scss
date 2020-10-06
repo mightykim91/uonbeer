@@ -1,6 +1,6 @@
 $font-main: #333333;
 $nav-height: 40px;
-$highlight-color: #4fd6ae;
+$highlight-color: #29a3e9;
 $highlight-menu: #555a64;
 $color-main: #e6ae14;
 $color-2: #4fd6ae;
@@ -15,6 +15,13 @@ $gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
   bottom: 0;
   left: 0;
   z-index: -1;
+}
+
+@mixin blend-in-mixin {
+  animation-duration: 250ms;
+  animation-name: blend-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 @keyframes blend-in {
@@ -78,6 +85,6 @@ $gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
   }
 
   .show-on-mobile {
-    display: inline;
+    display: inherit;
   }
 }
