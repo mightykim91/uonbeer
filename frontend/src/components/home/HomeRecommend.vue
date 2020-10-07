@@ -18,7 +18,16 @@
 
     <!-- content -->
     <div v-if="isLoading" class="home-loading">
-      로딩중...
+      <div>
+        빅데이터 분석을 통해
+        <br class="show-on-mobile">
+        취향에 맞는 맥주를
+        <br class="show-on-mobile">
+        냉장고에서 고르는 중입니다...</div>
+      <vue-loading
+        type="cylon" color="#29a3e9"
+        :size="{ width: '80px', height: '50px' }">
+      </vue-loading>
     </div>
 
     <div v-else></div>
@@ -100,6 +109,12 @@ export default {
 
 .home-loading {
   @extend .flex-center;
-  height: 500px;
+  flex-direction: column;
+  margin-bottom: 200px;
+  height: 300px;
+}
+
+.vue-loading {
+  margin: 50px auto !important;
 }
 </style>
