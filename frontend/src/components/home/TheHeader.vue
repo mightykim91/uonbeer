@@ -7,12 +7,14 @@
         지금 원하는 맥주를 검색해보세요!
       </p>
     </div>
+
     <div class="search-bar-wrap">
       <search-bar></search-bar>
     </div>
+
     <vue-particles
         color="#ffffff"
-        :particleOpacity="1"
+        :particleOpacity="0.8"
         :particlesNumber="150"
         shapeType="circle"
         :particleSize="13"
@@ -50,7 +52,6 @@ export default {
   flex-direction: column;
   height: 80vh;
   background: #333333;
-  // background-image: url('../../assets/img/header.jpg');
   background-image: $gradient-yellow;
   background-size: cover;
 }
@@ -77,16 +78,9 @@ export default {
   position: absolute;
   top: 40vh;
 }
-@keyframes slide-bg {
-    from {background-position-x: 0%;}
-    from {background-position-x: 100%;}
-}
+
 
 @media screen and (max-width: 768px) {
-  #header-img {
-    animation: slide-bg 20s linear infinite alternate;
-  }
-
   .header-msg {
     font-size: 2rem;
   }
