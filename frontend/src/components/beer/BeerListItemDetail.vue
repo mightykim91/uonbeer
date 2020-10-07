@@ -14,11 +14,14 @@
       <div class="beer-info">
         <div class="info-title flex-between">
           <div>맥주 정보</div>
-          <div v-if="isAuthed" class="video-call-btn">채팅 입장하기</div>
+          <!-- <div v-if="isAuthed" class="video-call-btn">채팅 입장하기</div> -->
         </div>
-        <p>스타일 : {{ item.style }}</p>
-        <p>국가 : {{ item.country }}</p>
-        <p>도수 : {{ item.abv }}%</p>
+        <p>제조업체</p>
+        <p>{{ item.brew_name }}</p>
+        <p>스타일</p>
+        <p>{{ item.style }}</p>
+        <p>국가 {{ item.country }}</p>
+        <p>도수 {{ item.abv }}%</p>
       </div>
     </div>
 
@@ -179,7 +182,7 @@ export default {
     height: 280px;
     background-color: #fefefe;
     background-position: 50% 50%;
-    // background-size: ;
+    background-size: cover;
     border: 1px dashed lightgrey;
     overflow: hidden;
   }

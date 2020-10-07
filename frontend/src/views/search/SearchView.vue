@@ -48,7 +48,7 @@ export default {
   @extend .flex-center;
   height: 200px;
   margin: 40px auto;
-  background-image: $gradient-yellow;
+  background-image: $gradient-green;
   flex-direction: column;
   border-bottom: 1px solid lightgrey;
 }
