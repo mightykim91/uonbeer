@@ -14,8 +14,8 @@
     <div
       v-if="show"
       @click="onClickLink('/')"
-      class="nav-logo flex-center">
-      U WANT BEER
+      class="nav-logo">
+      U WANT BEER.
     </div>
 
     <!-- menu : pc -->
@@ -159,6 +159,7 @@ export default {
 }
 
 .nav-logo {
+  @extend .flex-center;
   width: 150px;
   height: $nav-height - 15;
   font-weight: bolder;
