@@ -1,23 +1,28 @@
 <template>
-  <div class="beer-list-item-wrap flex-center">
+  <div class="beer-list-item-wrap">
 
     <!-- beer image -->
     <div 
       @click="onClickBeerItem"
       class="beer-img-wrap">
+      <country-flag :country='item.country.toLowerCase()' size="normal"/>
       <img
-        :src="item.image_url? item.image_url:getRandomBeerImg()" alt="pic" class="beer-img">
+        :src="item.image_url || getRandomBeerImg()" alt="pic" class="beer-img">
     </div>
 
     <!-- beer info -->
     <div class="beer-info-box">
-
-      <div class="beer-info-name">{{ item.name }}</div>
-      <div>{{ item.country }}<span v-if="item.state">, {{ item.state }}</span></div>
-      <div>{{ item.brewery }}</div>
-      <div>ABV {{ item.abv }}</div>
-
-      <!-- <div class="beer-match-rate">{{ matchRate }}%</div> -->
+      <div class="beer-info-name">
+        <span>{{ beerName }}</span>
+      </div>
+      <div style="font-size: 13px;">
+        <div class="beer-info-title">제조업체</div>
+        <div v-text="item.brew_name || '정보없음'"></div>
+        <div class="beer-info-title">스타일</div>
+        <div>{{ item.style }}</div>
+        <div class="beer-info-title">도수</div>
+        <div>{{ item.abv }}%</div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,10 +30,15 @@
 <script>
 // modules
 import api from '@/api/api'
+import CountryFlag from 'vue-country-flag'
 
 // components
 export default {
   name: 'BeerListItem',
+
+  component: {
+    CountryFlag
+  },
 
   props: {
     item: Object,
@@ -36,9 +46,9 @@ export default {
   },
 
   computed: {
-    matchRate() {
-      return Math.floor(Math.random() * 40, 1) + 60
-    },
+    beerName() {
+      return this.item.name_kr !== 'none' ? this.item.name_kr : this.item.name
+      }
   },
   
   methods: {
@@ -68,7 +78,7 @@ export default {
 @import '@/assets/style/base';
 
 .beer-list-item-wrap {
-  // display: flex;
+  @extend .flex-center;
   border: 1px solid lightgrey;
 
   &:hover {
@@ -84,7 +94,8 @@ export default {
   z-index: 1;
 
   &-wrap {
-    width: 150px;
+    position: relative;
+    min-width: 150px;
     height: 220px;
     background-image: $gradient-main;
     overflow: hidden;
@@ -94,6 +105,7 @@ export default {
       max-height: 100%;
       width: auto;
       height: auto;
+      z-index: 1;
     }
   }
 }
@@ -101,59 +113,20 @@ export default {
 .beer-info {
   &-box {
     flex-grow: 2;
-    padding: 10px 20px;
+    padding: 5px 15px;
     height: 200px;
     text-align: left;
 
-    div {
-      margin: 10px 0;
-      color: $font-main;
-    }
   }
   &-name {
     color: black !important;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bolder;
   }
-}
 
-.beer-match-rate {
-  color: black !important;
-  font-size: 3rem;
-  font-weight: bolder;
-  text-align: center;
-}
-
-.modal-info {
   &-title {
-    padding: 5px;
-    text-align: right;
-    border-bottom: 1px solid lightgrey;
-
-    i {
-      transition: 200ms;
-      font-size: 1.3rem;
-
-      &:hover {
-        color: tomato;
-        transform: rotateZ(180deg);
-      }
-    }
-  }
-
-  &-name {
-    height: 20px;
-    border-bottom: 1px solid lightgrey;
-  }
-
-  &-box {
-    display: flex;
-    height: 220px;
-
-    div {
-      width: 300px;
-      border: 1px solid salmon;
-    }
+    margin: 10px auto 5px;
+    font-weight: bold;
   }
 }
 
@@ -162,10 +135,15 @@ export default {
   height: 150px;
 }
 
+.flag {
+  position: absolute;
+  top: 5px;
+  left: 0px;
+}
+
 @media screen and (max-width: 768px) {
-  .modal-info-box {
-    display: inherit;
-    max-width: 100vw;
+  .beer-list-item-wrap {
+      margin: auto;
   }
 }
 

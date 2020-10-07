@@ -5,7 +5,6 @@
       <div class="search-filter-box flex-center">
       </div>
     </div>
-    
     <h2 v-if="isSearchResult">
       {{ keyword }} 검색결과: {{ searchResultArray.length }}건
     </h2>
@@ -61,7 +60,8 @@ export default {
 
 @media screen and (max-width: 768px) {
   .search-header {
-    height: auto;
+    height: 160px;
+    justify-content: start;
   }
 
   .search-filter-box {
