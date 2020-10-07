@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="flex-center beer-list-box">
+    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="beer-list-box">
       <div 
         v-for="(item, index) in searchResultArray" :key="index">
         <beer-list-item :item="item" :beerId="item.id"></beer-list-item>
@@ -71,6 +71,7 @@ export default {
 @import '@/assets/style/base';
 
 .beer-list-box {
+  @extend .flex-center;
   margin: 0 10vw;
   display: grid !important;
   grid-template-columns: repeat(3, 1fr);

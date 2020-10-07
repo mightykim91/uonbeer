@@ -4,11 +4,11 @@
     id="nav">
   
     <!-- menu button : mobile -->
-      <i
+      <!-- <i
         v-if="show"
         @click="onClickMenu"
         id="menu-btn"
-        class="fas fa-bars show-on-mobile"></i>
+        class="fas fa-bars show-on-mobile"></i> -->
 
     <!-- logo -->
     <div
