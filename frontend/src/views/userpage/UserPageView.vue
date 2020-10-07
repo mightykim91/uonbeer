@@ -14,9 +14,8 @@
 
           <!-- user info -->
           <div class="user-info-content">
-            <h1>{{ userData.username }}</h1>
-            <h4>안녕하세요, 맥주를 좋아하는 {{ userData.username }}입니다</h4>
-            {{ this.$store.state.review.reviewArray }}
+            <h1>{{ username }}</h1>
+            <h4>안녕하세요, 맥주를 좋아하는 {{ username }}입니다</h4>
           </div>
 
           <!-- setting button -->
@@ -75,12 +74,14 @@ export default {
     return {
       selectedTab: 1,
       tabName: ['리뷰', '위시리스트', '다이어리'],
+      username: '',
+      reviewArray: [],
     }
   },
 
   computed: {
     isMyPage() {
-      return this.$cookies.get('username') === this.userData.username
+      return this.$cookies.get('username') === this.username
     }
   },
 
@@ -95,17 +96,12 @@ export default {
 
 
   created() {
-    const username = this.$route.params.username
-    this.userData = {
-      username,
-      reviewCount: 0,
-      reviewArray: []
-    }
-
+    this.username = this.$route.params.username
+    
     api.getReviewByAuthor({user_id: this.$cookies.get('user_id')})
       .then((res) => {
-        this.userData.reviewArray = res.data
-        this.$store.dispatch('review/fetchReviewArray', this.userData.reviewArray)
+        this.reviewArray = res.data
+        this.$store.dispatch('review/fetchReviewArray', this.reviewArray)
       })
     // data에 userData 설정
 
