@@ -39,11 +39,11 @@
     &::placeholder {
       text-indent: 30px;
     }
-}
 
-.account-input-err {
-    color: #555555;
-    font-size: 0.7rem;
+    &-err {
+      color: salmon;
+      font-size: 0.7rem;
+    }
 }
 
 .checkbox-box {

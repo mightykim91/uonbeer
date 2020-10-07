@@ -23,20 +23,19 @@
       
     </div>
 
-    <!-- auth buttons pc && not authed -->
+    <!-- auth buttons : not authed -->
     <div
       v-if="show && !isAuthed"
-      class="hide-on-mobile flex-center">
-      <div
-        @click="onClickLink('/auth/login')"
-        class="base-btn">로그인</div>
+      @click="onClickLink('/auth/login')"
+      class="base-btn">로그인
     </div>
 
-    <!-- user button authed || mobile  -->
+
+    <!-- user button : authed  -->
     <div
-      v-if="show"
+      v-if="show && isAuthed"
       @click="onClickUser"
-      :class="[ isAuthed ? '' : 'show-on-mobile', 'nav-user-icon']">
+      class="nav-user-icon">
       <i class="fas fa-user-circle"></i>
     </div>
 
@@ -45,19 +44,13 @@
       @click="onClickUser"
       v-if="showUserDropdown"
       class="user-dropdown-box">
-      <div v-if="isAuthed">
+      <div>
         <div
           @click="onClickLink(`/user/${username}`)"
           class="user-dropdown-item">마이페이지</div>
         <div
           @click="onClickLogout"
           class="user-dropdown-item">로그아웃</div>
-      </div>
-      <div v-else>
-        <div
-          @click="onClickLink('/auth/login')"
-          class="user-dropdown-item">로그인
-        </div>
       </div>
     </div>
   </div>
@@ -204,6 +197,10 @@ export default {
       background-color: $highlight-menu;
     }
   }
+}
+
+.base-btn {
+  margin-right: 15px;
 }
 
 @media screen and (max-width: 768px) {
