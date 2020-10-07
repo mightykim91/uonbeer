@@ -70,5 +70,11 @@ export default {
             url: 'review/'+data.beer+'/all',
             method: 'get',
         })
+    },
+    getReviewByAuthor(data) {
+        return axios({
+            url: 'review/user/'+data.user_id,
+            method: 'get',
+        })
     }
 }
