@@ -21,6 +21,9 @@ class ReviewModel(models.Model):
     #beer
     beer = models.ForeignKey(Beer, related_name='reviews', on_delete=models.CASCADE, null=True)
 
+    #beer name
+    beer_name = models.CharField(max_length=500, null=True)
+
     #author
     author = models.ForeignKey(User, related_name="reviews", on_delete=models.CASCADE, null=True)
 
