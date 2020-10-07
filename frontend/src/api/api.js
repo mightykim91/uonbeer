@@ -76,5 +76,14 @@ export default {
             url: 'review/user/'+data.user_id,
             method: 'get',
         })
+    },
+
+    // recommendation
+    getRecommendArray(auth) {
+        return axios({
+            url: 'recommendation/svd/',
+            method: 'get',
+            headers: { Authorization: `Token ${auth}`}
+        })
     }
 }
