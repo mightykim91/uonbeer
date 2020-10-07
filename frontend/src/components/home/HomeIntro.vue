@@ -1,55 +1,93 @@
 <template>
   <div class="home-intro-section">
+  
+    <div class="home-line"></div> 
 
-      <div class="home-line"></div> 
-
-      <div class="home-title">
-        U WANT BEER.는 <br> 맥주를 즐기는 사람들을 위한 <br> 커뮤니티입니다.
-      </div>
-
-      <div class="home-line"></div> 
-
-      <!-- cards -->
-      <div class="home-intro-card-wrap">
-
-        <div class="home-intro-card">
-          <div class="home-intro-card-img"></div>
-          <div class="home-intro-card-msg">
-            검색하고 <br class="hide-on-mobile"> 리뷰를 <br> 남겨보세요.
-          </div>
-        </div>
-
-        <div class="home-intro-card">
-          <div class="home-intro-card-img"></div>
-          <div class="home-intro-card-msg">
-            캘린더로 <br class="hide-on-mobile"> 기록을 <br> 관리해보세요.
-          </div>
-        </div>
-        <div class="home-intro-card">
-          <div class="home-intro-card-img"></div>
-          <div class="home-intro-card-msg">
-            빅데이터 분석으로 <br> 취향의 맥주를 <br> 추천해드립니다.
-          </div>
-        </div>
-
-        <div class="home-intro-card">
-          <div class="home-intro-card-img"></div>
-          <div class="home-intro-card-msg">
-            다른 사용자들과 <br> 실시간으로 <br> 소통해보세요
-          </div>
-        </div>
-      </div>
-
-      <!-- signup -->
-      <div class="signup-btn">
-        회원가입하고 이 모든 혜택 누리기
-      </div>
+    <div class="home-title">
+      U WANT BEER.는 <br> 맥주를 즐기는 사람들을 위한 <br> 커뮤니티입니다.
     </div>
+
+    <div class="home-line"></div> 
+
+    <!-- cards -->
+    <div class="home-intro-card-wrap">
+
+      <div v-for="index in 4" :key="index" class="home-intro-card">
+        <div
+          :style="{'background-image': `url(${cardImageUrl(index)})`}"
+          class="home-intro-card-img">
+        </div>
+        <div v-html="cardText[index]" class="home-intro-card-msg">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- signup -->
+    <div class="signup-wrap">
+      <div class="signup-msg">회원가입하고 모든 기능을 사용해보세요!</div>
+      <div
+        @click="onClickSignup"
+        class="signup-btn">
+        회원가입
+      </div>
+
+      <!-- signup form -->
+      <div class="signup-form-wrap">
+        <signup-form></signup-form>
+      </div>
+
+      <div @click="onClickUp" class="up-btn">
+        <i class="fas fa-chevron-up"></i>
+      </div>
+
+    </div>
+  </div>
 </template>
 
 <script>
+import SignupForm from '@/components/accounts/SignupForm'
+import { smoothScrollTo } from '@/util/common/scroll'
+
 export default {
-  name: 'HomeIntro'
+  name: 'HomeIntro',
+
+  components: {
+    SignupForm
+  },
+
+  data() {
+    return {
+      showSignupForm: false,
+      cardImage: '../../assets/img/card',
+      cardImageLicense: [
+        '',
+        '<a href="http://www.freepik.com">Designed by pikisuperstar / Freepik</a>',
+        '<a href="https://www.freepik.com/vectors/calendar">Calendar vector created by freepik - www.freepik.com</a>',
+        '<a href="https://www.freepik.com/vectors/infographic">Infographic vector created by katemangostar - www.freepik.com</a>',
+        '<a href="https://www.freepik.com/vectors/business">Business vector created by freepik - www.freepik.com</a>'
+      ],
+      cardText: [
+        '',
+        '검색하고 <br class="hide-on-mobile"> 리뷰를 <br> 남겨보세요.',
+        '캘린더로 <br class="hide-on-mobile"> 기록을 <br> 관리해보세요.',
+        '빅데이터 분석으로 <br> 취향의 맥주를 <br> 추천해드립니다.',
+        '다른 사용자들과 <br> 실시간으로 <br> 소통해보세요'
+      ],
+    }
+  },
+  methods: {
+    cardImageUrl(index) {
+      return require(`../../assets/img/card${index}.jpg`)
+    },
+    onClickSignup(e) {
+      const targetY = window.pageYOffset + e.target.getBoundingClientRect().top
+      smoothScrollTo(targetY + 300)
+    },
+    onClickUp() {
+      smoothScrollTo(0)
+    }
+  }
 }
 </script>
 
@@ -59,7 +97,9 @@ export default {
 .home-line {
   width: 50vw; height: 0;
   margin: 50px auto;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid $highlight-color;
+  border-image-source: $gradient-green;
+    border-image-slice: 60 30;
 }
 
 .home-title {
@@ -70,17 +110,12 @@ export default {
 }
 
 
-.home-intro-section {
-  margin: 0 10vw;
-}
-
 .home-intro-card {
   @extend .flex-center;
   flex-direction: column;
-  margin: 30px auto;
   width: 210px;
   height: 250px;
-  padding: 10px 15px;
+  justify-self: center;
 
   background: white;
   border-radius: 5px;
@@ -88,36 +123,94 @@ export default {
   box-shadow: 5px 5px 5px lightgrey;
 
   &-wrap {
-    display: flex;
+    width: 80vw;
+    margin: 50px auto;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 20px;
   }
 
   &-img {
-    margin-bottom: 10px;
-    width: 210px;
+    @extend .flex-center;
+    margin: 10px auto;
+    width: 190px;
     height: 120px;
     border: 1px dashed lightgrey;
-    background: $highlight-color;
+    // background-color: $highlight-color;
+    background-image: url('../../assets/img/card1.jpg');
+    background-size: cover;
+    background-position-y: 40%;
+    font-size: 3rem;
   }
 
   &-msg {
-    margin-left: 15px;
-    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
     font-weight: 500;
     text-align: left;
     line-height: 150%;
   }
 }
 
-.signup-btn {
-  @extend .base-btn;
-  margin: 50px auto;
-  width: 250px;
-  height: 100px;
-  background: white;
+.signup {
+  &-wrap {
+    height: 100vh;
+    padding-top: 20px;
+    padding-bottom: 150px;
+    background-color: #424244;
+    // background-image: linear-gradient(to bottom, #333333, #66676b)
+  }
+  
+  &-btn {
+    @extend .base-btn;
+    margin: 20px auto 70px;
+    padding:0;
+    width: 300px;
+    height: 40px;
+    background: $highlight-color;
+    color: white;
+    // font-size: 1.2rem;
+  }
+  
+  &-msg {
+    color: white;
+    margin-top: 30px;
+  }
+
+  &-form-wrap {
+    @extend .flex-center;
+    max-width: 500px;
+    min-height: 400px;
+    margin: 200px auto auto;
+    background-color: white;
+  }
+}
+
+.up-btn {
+  @extend .flex-center;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  border: 2px solid white;
+  background: #33333396;
+  color: white;
+  transition: 100ms;
+  margin: 50px auto 0 ;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $highlight-color;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .home-intro-card-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media screen and (max-width: 768px) {
-
   .home-intro {
     &-section {
       margin: 0;
@@ -126,7 +219,6 @@ export default {
     &-card {
       min-width: 0;
       width: 80vw;
-      left: 10vw;
 
       &-msg {
         margin: 0;
@@ -134,7 +226,7 @@ export default {
     }
 
     &-card-wrap {
-      flex-direction: column;
+      grid-template-columns: repeat(1, 1fr);
     }
 }
 }
