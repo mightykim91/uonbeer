@@ -79,11 +79,10 @@ export default {
     },
 
     // recommendation
-    getRecommendArray(auth) {
+    getRecommendArray() {
         return axios({
-            url: 'recommendation/svd/',
+            url: 'beer/recommendation',
             method: 'get',
-            headers: { Authorization: `Token ${auth}`}
         })
     }
 }

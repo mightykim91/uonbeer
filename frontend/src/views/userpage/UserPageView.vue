@@ -56,7 +56,9 @@
         <div>찜 목록이 비어있습니다.</div>
       </div>
       <!-- calendar -->
-      <user-calendar v-show="selectedTab === 3"></user-calendar>
+      <user-calendar
+        v-if="selectedTab === 3" :reviewArray="reviewArray">
+      </user-calendar>
     </div>
 
   </div>
