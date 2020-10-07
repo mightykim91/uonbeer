@@ -109,6 +109,7 @@ export default {
                         // 쿠키 설정 및 redirect
                         this.$cookies.set('auth', res.data.key)
                         this.$cookies.set('username', res.data.user.username)
+                        this.$cookies.set('user_id', res.data.user.id)
                         this.$store.commit('common/toggleCookie')
                         this.$router.push('/')
                     }).catch(() => {

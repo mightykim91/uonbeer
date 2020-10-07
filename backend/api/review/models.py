@@ -34,13 +34,13 @@ class ReviewModel(models.Model):
     last_edit_date = models.DateField(auto_now=True, null=True)
 
     #toString method
-    def __str__(self):
-        result = {
-            # "title": self.title,
-            "rate": self.rate,
-            "content": self.content,
-            "author": self.author,
-            "created_date": self.created_date,
-            "last_edit_date": self.last_edit.date,
-        }
-        return result
+    # def __str__(self):
+    #     result = {
+    #         # "title": self.title,
+    #         "rate": self.rate,
+    #         "content": self.content,
+    #         "author": self.author,
+    #         "created_date": self.created_date,
+    #         "last_edit_date": self.last_edit_date,
+    #     }
+    #     return result
