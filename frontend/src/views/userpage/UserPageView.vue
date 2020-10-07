@@ -7,6 +7,7 @@
         <div class="user-info-box">
           <!-- user photo -->
           <div class="user-photo">
+            <img src="../../assets/img/base-user-img.svg" alt="">
             <div @click="onClickWIP" class="user-photo-btn">
               <i class="fas fa-camera"></i>
             </div>
@@ -14,8 +15,8 @@
 
           <!-- user info -->
           <div class="user-info-content">
-            <h1>{{ username }}</h1>
-            <h4>안녕하세요, 맥주를 좋아하는 {{ username }}입니다</h4>
+            <h2>{{ username }}</h2>
+            <div>안녕하세요, 맥주를 좋아하는 {{ username }}입니다.</div>
           </div>
 
           <!-- setting button -->
@@ -25,7 +26,6 @@
               class="fas fa-cog user-info-btn"></i>
         </div>
       </div>
-
 
       <!-- tabs -->
       <div class="user-content-tab-box">
@@ -44,9 +44,15 @@
     <div class="user-content-wrap">
 
       <!-- reviews -->
-      <!-- <beer-review-list v-if="selectedTab === 1"></beer-review-list> -->
+      <div v-if="selectedTab === 1" class="userpage-content-wrap">
+        <user-review-list v-if="reviewArray.length"></user-review-list>
+        <div v-else>작성한 리뷰가 없습니다.</div>
+      </div>
       <!-- wish list -->
-      <beer-list v-if="selectedTab === 2"></beer-list>
+      <div v-if="selectedTab === 2" class="userpage-content-r">
+        <beer-list></beer-list>
+        <div>찜 목록이 비어있습니다.</div>
+      </div>
       <!-- calendar -->
       <user-calendar v-show="selectedTab === 3"></user-calendar>
     </div>
@@ -56,24 +62,26 @@
 
 <script>
 // components
-// import BeerReviewList from '../../components/beer/BeerReviewList'
 import BeerList from '@/components/beer/BeerList'
 import UserCalendar from '@/components/userpage/UserCalendar'
+import UserReviewList from '@/components/userpage/UserReviewList'
+
+// modules
 import api from '@/api/api'
 
 export default {
   name: 'UserPageView',
 
   components: {
-    // 'beer-review-list': BeerReviewList,
-    'beer-list': BeerList,
-    'user-calendar': UserCalendar
+    UserReviewList,
+    BeerList,
+    UserCalendar
   },
 
   data() {
     return {
       selectedTab: 1,
-      tabName: ['리뷰', '위시리스트', '다이어리'],
+      tabName: ['리뷰', '찜 목록', '다이어리'],
       username: '',
       reviewArray: [],
     }
@@ -93,7 +101,6 @@ export default {
       alert('곧 업데이트될 예정입니다.')
     },
   },
-
 
   created() {
     this.username = this.$route.params.username
@@ -159,13 +166,18 @@ export default {
 }
 
 .user-photo {
+  @extend .flex-center;
   position: relative;
   margin: 0 50px 0 100px;
-  min-width: 100px; 
+  min-width: 100px;
   min-height: 100px;
   border-radius: 100%;
-  border: 3px solid grey;
-  background: #f2f2f2;
+  border: 3px solid $highlight-color;
+  background-color: #f2f2f2;
+
+  img {
+    width: 80px;
+  }
 }
 
 .user-photo-btn {
@@ -213,7 +225,7 @@ export default {
 
   &-selected {
     background-color: white !important;
-    border-top: 3px solid $color-2;
+    border-top: 3px solid $highlight-color;
     color: $font-main;
   }
 
@@ -223,6 +235,9 @@ export default {
   }
 }
 
+.userpage-content-wrap {
+  @include blend-in-mixin;
+}
 
 @media screen and (max-width: 768px) {
   .user-header {

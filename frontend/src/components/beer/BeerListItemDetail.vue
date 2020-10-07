@@ -8,8 +8,7 @@
     <div
       class="beer-content-box">
       <!-- beer img -->
-      <div class="beer-img">
-        <img :src="item.image_url || getRandomBeerImg()">
+      <div class="beer-img" :style="{'background-image': `url(${imgUrl})`}">
       </div>
       <!-- beer info -->
       <div class="beer-info">
@@ -116,7 +115,11 @@ export default {
     },
     isAuthed() {
       return this.$store.getters['common/isAuthed']
+    },
+    imgUrl() {
+      return this.item.image_url || this.getRandomBeerImg()
     }
+
   },
 
   methods: {
@@ -175,15 +178,10 @@ export default {
     margin-right: 30px;
     height: 280px;
     background-color: #fefefe;
+    background-position: 50% 50%;
+    // background-size: ;
     border: 1px dashed lightgrey;
     overflow: hidden;
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-    }
   }
 }
 
@@ -280,6 +278,7 @@ export default {
 
   .beer-img {
     margin: 0;
+    height: 300px;
   }
 }
 

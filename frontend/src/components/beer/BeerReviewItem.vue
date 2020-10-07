@@ -39,8 +39,15 @@ export default {
   name: 'BeerReviewItem',
 
   props: {
-    review: Object
+    review: Object,
+    beerName: String,
   },
+
+  computed: {
+    isUserPage() {
+      return !!this.beerName || false
+    }
+  }
 }
 </script>
 
