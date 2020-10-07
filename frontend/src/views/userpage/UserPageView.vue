@@ -16,6 +16,7 @@
           <div class="user-info-content">
             <h1>{{ userData.username }}</h1>
             <h4>안녕하세요, 맥주를 좋아하는 {{ userData.username }}입니다</h4>
+            {{ this.$store.state.review.reviewArray }}
           </div>
 
           <!-- setting button -->
@@ -90,12 +91,6 @@ export default {
     onClickWIP() {
       alert('곧 업데이트될 예정입니다.')
     },
-    fetchBeerFromReview(beer_id) {
-      api.getSingleBeer(beer_id)
-        .then((res) => {
-          return res.data.name_kr || res.data.name
-        })
-    }
   },
 
 
@@ -106,12 +101,10 @@ export default {
       reviewCount: 0,
       reviewArray: []
     }
-    // getUserData 구현필요
+
     api.getReviewByAuthor({user_id: this.$cookies.get('user_id')})
       .then((res) => {
-        this.userData.reviewArray = res.data.forEach((e) => {
-          e.beerName = this.fetchBeerFromReview(e.beer)
-        })
+        this.userData.reviewArray = res.data
         this.$store.dispatch('review/fetchReviewArray', this.userData.reviewArray)
       })
     // data에 userData 설정
