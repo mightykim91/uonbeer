@@ -78,6 +78,13 @@ export default {
   grid-gap: 20px;
 }
 
+@media screen and (max-width: 960px){
+  .beer-list-box {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+}
+
 @media screen and (max-width: 768px){
   .beer-list-box {
     margin: 0 10px;

@@ -23,12 +23,12 @@
         :linesWidth="1"
         :lineLinked="false"
         :lineOpacity="0"
-        :linesDistance="150"
-        :moveSpeed="3"
+        :linesDistance="0"
+        :moveSpeed="4"
         :hoverEffect="true"
         hoverMode="grab"
         :clickEffect="true"
-        clickMode="push"
+        clickMode="bubble"
         style="height: 100%; width: 100%;"
       >
       </vue-particles>
@@ -82,7 +82,7 @@ export default {
   &-sm {
     font-size: 1.5rem;
     text-shadow: none;
-    color: black;
+    color: #333333;
   }
 }
 
