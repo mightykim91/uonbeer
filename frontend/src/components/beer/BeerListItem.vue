@@ -1,6 +1,5 @@
 <template>
   <div class="beer-list-item-wrap">
-
     <!-- beer image -->
     <div 
       @click="onClickBeerItem"
@@ -8,6 +7,7 @@
       <country-flag :country='item.country.toLowerCase()' size="normal"/>
       <img
         :src="item.image_url || getRandomBeerImg()" alt="pic" class="beer-img">
+        
     </div>
 
     <!-- beer info -->
