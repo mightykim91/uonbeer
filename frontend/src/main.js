@@ -7,6 +7,7 @@ import VCalendar from 'v-calendar'
 import infiniteScroll from 'vue-infinite-scroll'
 import CountryFlag from 'vue-country-flag'
 import VueParticles from 'vue-particles'
+import VueLoading from 'vue-loading-template'
 
 require('@/assets/scss/main.scss')
 
@@ -15,6 +16,7 @@ Vue.use(VCalendar)
 Vue.use(infiniteScroll)
 Vue.component('country-flag', CountryFlag)
 Vue.use(VueParticles)
+Vue.use(VueLoading)
 
 Vue.config.productionTip = false
 
