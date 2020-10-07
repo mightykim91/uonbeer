@@ -47,6 +47,7 @@
       class="user-dropdown-box">
       <div v-if="isAuthed">
         <div
+          @click="onClickLink(`/user/${username}`)"
           class="user-dropdown-item">마이페이지</div>
         <div
           @click="onClickLogout"
@@ -84,6 +85,9 @@ export default {
     },
     isHome() {
       return this.$route.path === "/"
+    },
+    username() {
+      return this.$cookies.get('username') || null
     }
   },
 
