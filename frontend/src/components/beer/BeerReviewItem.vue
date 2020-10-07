@@ -1,12 +1,20 @@
 <template>
 <div>
   <div v-if="this.review" class="review-box">
+    
+    <div v-if="review.beer_name" class="review-beer-name">
+      {{ review.beer_name }}
+      <div
+        @click="onClickDetail"
+        class="review-beer-name-detail">자세히 보기
+      </div>
+    </div>
 
     <!-- username & rate -->
     <div class="review-username-box">
       <!-- username  -->
       <div>
-        <span class="review-username">
+        <span v-if="!review.beer_name" class="review-username">
           {{ review.author }}
         </span>
         <!-- rate -->
@@ -40,12 +48,17 @@ export default {
 
   props: {
     review: Object,
-    beerName: String,
   },
 
   computed: {
     isUserPage() {
       return !!this.beerName || false
+    }
+  },
+
+  methods: {
+    onClickDetail() {
+      alert('현재 지원하지 않는 기능입니다.')
     }
   }
 }
@@ -58,13 +71,32 @@ export default {
   &-box {
     width: 40vw;
     margin: 5px auto;
-    padding: 10px 5px;
     border: 1px solid lightgrey;
     border-radius: 5px;
+    background-color: white;
+  }
+
+  &-beer-name {
+    margin: 10px;
+    font-weight: bolder;
+    text-align: left;
+
+    &-detail {
+      // margin: 10px 0;
+      font-weight: normal;
+      font-size: 12px;
+      color: grey;
+
+      &:hover {
+        cursor: pointer;
+        color: $highlight-color;
+      }
+    }
   }
 
   &-username-box {
     @extend .flex-between;
+    margin: 10px;
     border-bottom: 1px solid lightgrey;
   }
 
@@ -74,12 +106,12 @@ export default {
 
   &-content {
     min-height: 40px;
-    padding: 10px;
+    // padding: 10px;
+    margin: 10px;
     text-align: left;
   }
 
   &-date {
-    width: 100px;
     font-size: 10px;
   }
 }

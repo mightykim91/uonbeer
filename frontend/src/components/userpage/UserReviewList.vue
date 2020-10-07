@@ -1,7 +1,9 @@
 <template>
 <div v-if="reviewArray">
   <beer-review-item
-    v-for="(item, index) in reviewArray" :key="index">
+    v-for="(review, index) in reviewArray" :key="index"
+    :review="review"
+    >
   </beer-review-item>
 </div>
 </template>
