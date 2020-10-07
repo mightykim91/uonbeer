@@ -15,7 +15,7 @@
       <!-- username  -->
       <div>
         <span v-if="!review.beer_name" class="review-username">
-          {{ review.author }}
+          {{ review.author_name }}
         </span>
         <!-- rate -->
         <span style="font-size: 10px">
