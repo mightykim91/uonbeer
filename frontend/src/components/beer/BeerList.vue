@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" class="beer-list-box">
+    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit" infinite-scroll-throttle-delay="1000"	class="beer-list-box">
       <div 
         v-for="(item, index) in searchResultArray" :key="index">
         <beer-list-item :item="item" :beerId="item.id"></beer-list-item>
@@ -52,9 +52,9 @@ export default {
     loadMore: async function() {
       if (this.$store.state.search.searchResultArray.length&&!this.$store.state.search.noMoreSearch) {
         this.busy = true;
-        await setTimeout(() => {
-        this.searchMore()
+        await setTimeout( () => {
         this.limit += 12
+        this.searchMore()
         this.busy = false;
         }, 1000);
       }
