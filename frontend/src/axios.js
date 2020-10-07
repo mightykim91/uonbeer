@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'http://j3a405.p.ssafy.io:8081/',
-    // baseURL: 'http://localhost:8000/'
+    // baseURL: 'http://j3a405.p.ssafy.io:8081/',
+    baseURL: 'http://localhost:8000/'
 })
 
 instance.interceptors.request.use(
