@@ -62,18 +62,11 @@ export default {
   },
 
   created() {
-    console.log('created')
-    console.log(this.$cookies.get('auth'))
     api.getRecommendArray(this.$cookies.get('auth'))
     .then((res) => {
       console.log(res)
     })
   },
-
-  mounted() {
-    console.log('mounted')
-  }
-
 }
 </script>
 
