@@ -27,6 +27,9 @@ def getReview(request, review_id):
 @api_view(['GET'])
 def getReviewByBeer(request, beer_id):
     reviews = ReviewModel.objects.all().filter(beer=beer_id)
+    for i in reviews:
+        print(i.author.username)
+        i.author_name = i.author.username
     serializer = ReviewSerializer(reviews, many=True)
     return Response(serializer.data, status=200)
 
