@@ -11,6 +11,10 @@
 <script>
 export default {
   name: 'UserCalendar',
+
+  props: {
+    reviewArray: Array,
+  },
   
   data() {
     return {
@@ -26,41 +30,18 @@ export default {
     }
   },
 
-  created() {
-    // userReviewArray = api.getUserReviewArray
-    // UserPageView에서 미리 수행한 뒤 store에 state로 저장, 호출하여 사용
-
-    //  dummy data
-    const userReviewArray = [
-      {
-        beer: 'Cass',
-        created_date: new Date(2020, 9, 6),
-      },
-      {
-        beer: 'Cass',
-        created_date: new Date(2020, 9, 6),
-      },
-      {
-        beer: 'Cass',
-        created_date: new Date(2020, 9, 6),
-      },
-      {
-        beer: 'Klaud',
-        created_date: new Date(2020, 9, 10),
-      },
-    ]
-
+  mounted() {
     function toAttributesFormat(review) {
       return {
         dates: review.created_date,
         dot: { color: 'red' },
-        popover: { label: review.beer }
+        popover: { label: review.beer_name }
       }
     }
     
     this.attributes = [
       ...this.attributes,
-      ...userReviewArray.map(review => toAttributesFormat(review))
+      ...this.reviewArray.map(review => toAttributesFormat(review))
     ]
   }
 }
@@ -69,6 +50,6 @@ export default {
 <style lang="scss" scoped>
 .calendar-wrap {
   width: 100vw;
-  max-width: 800px;
+  max-width: 650px;
 }
 </style>
