@@ -41,6 +41,7 @@
 
 <script>
 import SearchBar from '@/components/common/SearchBar'
+import { smoothScrollTo } from '@/util/common/scroll'
 
 export default {
   components: {
@@ -49,7 +50,7 @@ export default {
 
   methods: {
     onClickDown() {
-      window.scrollTo(0, window.innerHeight+10)
+      smoothScrollTo(window.innerHeight+10)
     }
   }
 }
@@ -107,8 +108,6 @@ export default {
     cursor: pointer;
     background-color: $highlight-color;
   }
-  
-  // font-size: 1rem;
 }
 
 @media screen and (max-width: 768px) {
