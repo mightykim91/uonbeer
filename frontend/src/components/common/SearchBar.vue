@@ -92,10 +92,11 @@ export default {
       showFilter: false,
     }
   },
+
   methods: {
     async onSubmit() {
       if (this.keyword) {
-        await api.search({ keyword: this.keyword, style: this.style, country: this.country, abvmax: this.abv[1], abvmin: this.abv[0], limit: this.limit
+        await api.search({keyword: this.keyword, style: this.style, country: this.country, abvmax: this.abv[1], abvmin: this.abv[0], limit: this.limit
         }).then((res) => {
           if (res.status === 200) {
             console.log(res)
@@ -106,7 +107,7 @@ export default {
             this.$store.dispatch('search/fetchSearchOrNot', true)
           }
             else {
-            alert("찾으시는 맥주가 없습니다 ㅠㅠ")
+            alert("찾으시는 맥주가 없습니다")
             this.$store.dispatch('search/fetchSearchResult', res)
           }
         }).catch(() => alert('error'))
@@ -117,7 +118,7 @@ export default {
     },
     onClickFilter() {
       this.showFilter = !this.showFilter
-    }
+    },
   },
   
   mounted() {

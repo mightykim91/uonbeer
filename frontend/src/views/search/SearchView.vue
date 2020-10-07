@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <div style="padding-bottom: 100px;">
     <div class="search-header flex-center">
         <search-bar></search-bar>
       <div class="search-filter-box flex-center">
       </div>
     </div>
-    <div class="flex-center show-on-mobile" style="height: 120px;">최근 검색어</div>
     <h2 v-if="isSearchResult">
       {{ keyword }} 검색결과: {{ searchResultArray.length }}건
     </h2>
-    
     <beer-list></beer-list>
   </div>
 </template>
@@ -62,7 +60,8 @@ export default {
 
 @media screen and (max-width: 768px) {
   .search-header {
-    height: auto;
+    height: 160px;
+    justify-content: start;
   }
 
   .search-filter-box {

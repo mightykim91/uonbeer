@@ -44,7 +44,7 @@
     <div class="user-content-wrap">
 
       <!-- reviews -->
-      <beer-review-list v-if="selectedTab === 1"></beer-review-list>
+      <!-- <beer-review-list v-if="selectedTab === 1"></beer-review-list> -->
       <!-- wish list -->
       <beer-list v-if="selectedTab === 2"></beer-list>
       <!-- calendar -->
@@ -56,16 +56,16 @@
 
 <script>
 // components
+// import BeerReviewList from '../../components/beer/BeerReviewList'
 import BeerList from '@/components/beer/BeerList'
-import BeerReviewList from '../../components/beer/BeerReviewList'
 import UserCalendar from '@/components/userpage/UserCalendar'
 
 export default {
   name: 'UserPageView',
 
   components: {
+    // 'beer-review-list': BeerReviewList,
     'beer-list': BeerList,
-    'beer-review-list': BeerReviewList,
     'user-calendar': UserCalendar
   },
 

@@ -71,18 +71,13 @@
 
       <!-- review list -->
       <div v-if="!isReviewCreate" class="review-list-wrap">
-        <!-- when reviews -->
-        <div v-if="beerReviewArray.length" style="display:flex!important; flex-direction: column; align-items:start">
-          <div v-for="reviews in beerReviewArray" :key="reviews.id" style="overflow: hidden">
-            <i
-              v-for="index in 5"
-              :key="index"
-              :class="[ reviews.rate >= index ? 'star-active' : '', 'fas fa-star']">
-            </i>
-            <i class="far fa-user" style="margin: 0 10px 0 30px;"></i><span style="margin-right: 50px">{{reviews.author}}</span> {{ reviews.content}}
+        <!-- if review -->
+        <div v-if="beerReviewArray.length">
+          <div v-for="review in beerReviewArray" :key="review.id" style="overflow: hidden">
+            <beer-review-item :review="review"></beer-review-item>
           </div>
         </div>
-
+        <!-- else -->
         <div v-else class="no-review-wrap">
           작성된 리뷰가 없습니다. <br>
           첫 리뷰 작성자가 되어주세요!
@@ -95,12 +90,14 @@
 
 <script>
 import BeerReviewCreate from '@/components/beer/BeerReviewCreate'
+import BeerReviewItem from '@/components/beer/BeerReviewItem'
 
 export default {
   name: 'BeerListItemDetail',
 
   components: {
     'beer-review-create': BeerReviewCreate,
+    'beer-review-item': BeerReviewItem,
   },
 
   data() {
@@ -286,8 +283,4 @@ export default {
   }
 }
 
-//별점 색깔
-.star-active {
-  color: $highlight-color !important;
-}
 </style>
