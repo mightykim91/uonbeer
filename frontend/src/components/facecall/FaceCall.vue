@@ -14,10 +14,11 @@
 import io from 'socket.io-client'
 import Peer from 'peerjs'
 
-const socket = io('http://localhost:3000')
+const socket = io('http://j3a405.p.ssafy.io:3000')
 const myPeer = new Peer(undefined,{
-    host: '/',
-    port: 3001,
+    host: 'j3a405.p.ssafy.io',
+    port: 9000,
+    path:'/myapp',
     debug:3,
 })
     
