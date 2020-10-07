@@ -74,7 +74,7 @@ def deleteBeer(request, beer_id):
 @api_view(['GET'])
 def searchBeer(request):
     #Get keyword from query string
-    keyword = request.GET.get('keyword').replace(" ", "")
+    keyword = request.GET.get('keyword')
     style = request.GET.get('style')
     country = request.GET.get('country')
     abvmax = request.GET.get('abvmax')
@@ -83,13 +83,17 @@ def searchBeer(request):
     #Get all beer
     beer = Beer.objects.all()
     #Create nospace column and add beer name after removing all spaces
-    preprocess = beer.annotate(
-        nospace1=Func( F('name_kr'), Value(" "), Value(""), function="replace" ), 
-        nospace2=Func( F('name'), Value(" "), Value(""), function="replace"),
-        lowercase=Func( F('name'), function="lower")
-        )
+    if keyword:
+        keyword = keyword.replace(" ", "")
+        preprocess = beer.annotate(
+            nospace1=Func( F('name_kr'), Value(" "), Value(""), function="replace" ), 
+            nospace2=Func( F('name'), Value(" "), Value(""), function="replace"),
+            lowercase=Func( F('name'), function="lower")
+            )
     #Search beer for keyword, country, style, abv range
-    rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
+        rst = preprocess.filter((Q(nospace1__contains=keyword) | Q(nospace2__contains=keyword) | Q(lowercase__contains=keyword))&Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
+    else:
+        rst = beer.filter(Q(abv__gte=abvmin)&Q(abv__lte=abvmax))
     if style == 'Etc':
         rst = rst.exclude(Q(style='Lager') | Q(style='Ale'))
     elif style != 'All':
