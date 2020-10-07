@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import api from '@/api/api'
 export default {
   name: 'BeerReviewItem',
 
@@ -58,8 +59,23 @@ export default {
 
   methods: {
     onClickDetail() {
-      alert('현재 지원하지 않는 기능입니다.')
-    }
+      // alert('현재 지원하지 않는 기능입니다.')
+      api.getSingleBeer(this.review.beer)
+        .then((res) => {
+          console.log(res)
+          this.$store.commit('beer/setBeerItem', res.data)
+        })
+      this.$store.state.beer.beerReviewArray = []
+      this.fetchReview()
+      this.$store.commit('common/toggleShowModal')
+    },
+    fetchReview() {
+      api.getReviewByBeer({ beer: this.review.beer})
+        .then((res) => {
+          this.$store.state.beer.beerReviewArray = res.data
+        })
+        .catch(()=> alert('err'))
+    },
   }
 }
 </script>
