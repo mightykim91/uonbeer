@@ -1,16 +1,17 @@
 <template>
-  <div id="header-img" class="flex-center">
-    <div class="header-msg">
-      U WANT BEER. <br>
-      NOW. <br>
-      <p class="header-msg-sm">
-        지금 원하는 맥주를 검색해보세요!
-      </p>
-    </div>
+  <div id="header-img">
 
-    <div class="search-bar-wrap">
-      <search-bar></search-bar>
-    </div>
+      <div class="header-msg">
+        U WANT BEER. <br>
+        NOW. <br>
+        <p class="header-msg-sm">
+          지금 원하는 맥주를 검색해보세요!
+        </p>
+      </div>
+
+      <div class="search-bar-wrap">
+        <search-bar></search-bar>
+      </div>
 
     <vue-particles
         color="#ffffff"
@@ -31,6 +32,10 @@
         style="height: 100%; width: 100%;"
       >
       </vue-particles>
+
+      <div @click="onClickDown" class="down-btn">
+        <i class="fas fa-chevron-down"></i>
+      </div>
   </div>
 </template>
 
@@ -40,6 +45,12 @@ import SearchBar from '@/components/common/SearchBar'
 export default {
   components: {
     'search-bar': SearchBar
+  },
+
+  methods: {
+    onClickDown() {
+      window.scrollTo(0, window.innerHeight+10)
+    }
   }
 }
 </script>
@@ -48,9 +59,10 @@ export default {
 @import '@/assets/style/base';
 
 #header-img {
+  @extend .flex-center;
   position: relative;
   flex-direction: column;
-  height: 80vh;
+  height: 100vh;
   background: #333333;
   background-image: $gradient-yellow;
   background-size: cover;
@@ -58,17 +70,16 @@ export default {
 
 .header-msg {
   position: absolute;
-  top: 20vh;
+  top: 23vh;
   margin-bottom: 20px;
-  width: 50vw;
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bolder;
   text-align: left;
   color: white;
   text-shadow: 3px 3px 5px #333333;
 
   &-sm {
-    font-size: 1rem;
+    font-size: 1.5rem;
     text-shadow: none;
     color: black;
   }
@@ -76,13 +87,36 @@ export default {
 
 .search-bar-wrap {
   position: absolute;
-  top: 40vh;
+  top: 50vh;
 }
 
+.down-btn {
+  @extend .flex-center;
+  position: absolute;
+  top: 90vh;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  border: 2px solid white;
+  background: #33333396;
+  color: white;
+  transition: 100ms;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $highlight-color;
+  }
+  
+  // font-size: 1rem;
+}
 
 @media screen and (max-width: 768px) {
   .header-msg {
     font-size: 2rem;
+
+    &-sm {
+      font-size: 1rem;
+    }
   }
 }
 </style>
