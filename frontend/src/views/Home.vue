@@ -1,4 +1,11 @@
 <template>
+  <div id="header-img" class="flex-center">
+    <div class="header-msg">
+      U WANT BEER. <br>
+      NOW. <br>
+      <p class="header-msg-sm">
+        지금 원하는 맥주를 검색해보세요!
+      </p>
   <div>
     <the-header></the-header>
     
@@ -35,15 +42,37 @@
         회원가입하고 이 모든 혜택 누리기
       </div>
     </div>
+    <div class="search-bar-wrap">
+      <search-bar></search-bar>
+    </div>
+    <vue-particles
+        color="#ffffff"
+        :particleOpacity="1"
+        :particlesNumber="150"
+        shapeType="circle"
+        :particleSize="13"
+        linesColor="#dedede"
+        :linesWidth="1"
+        :lineLinked="false"
+        :lineOpacity="0"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+        style="height: 100%; width: 100%;"
+      >
+      </vue-particles>
   </div>
 </template>
 
 <script>
-import TheHeader from '@/components/home/TheHeader'
-export default {
-  name: 'Home',
+import SearchBar from '@/components/common/SearchBar'
 
+export default {
   components: {
+    'search-bar': SearchBar
     'the-header': TheHeader,
   },
   
@@ -114,6 +143,9 @@ export default {
     width: 80vw;
     left: 10vw;
   }
+  
+  .header-msg {
+    font-size: 2rem;
+  }
 }
-
 </style>
