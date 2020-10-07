@@ -94,6 +94,7 @@ export default {
   border: none;
   resize: none;
   font-family: "NanumSquareR";
+  line-height: 160%;
 
   &:focus {
     outline: none;

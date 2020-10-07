@@ -45,7 +45,9 @@
 
       <!-- reviews -->
       <div v-if="selectedTab === 1" class="userpage-content-wrap">
-        <user-review-list v-if="reviewArray.length"></user-review-list>
+        <user-review-list
+        v-if="reviewArray.length"
+        :reviewArray='reviewArray'></user-review-list>
         <div v-else>작성한 리뷰가 없습니다.</div>
       </div>
       <!-- wish list -->
