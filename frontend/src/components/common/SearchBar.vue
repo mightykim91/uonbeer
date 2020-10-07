@@ -95,7 +95,6 @@ export default {
 
   methods: {
     async onSubmit() {
-      if (this.keyword) {
         await api.search({keyword: this.keyword, style: this.style, country: this.country, abvmax: this.abv[1], abvmin: this.abv[0], limit: this.limit
         }).then((res) => {
           if (res.status === 200) {
@@ -112,9 +111,6 @@ export default {
           }
         }).catch(() => alert('error'))
         this.$router.push(`/search/${this.keyword}`).catch(() => {})
-      } else {
-        alert('검색어를 입력하세요!')
-      }
     },
     onClickFilter() {
       this.showFilter = !this.showFilter
