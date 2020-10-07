@@ -6,6 +6,41 @@
       <p class="header-msg-sm">
         지금 원하는 맥주를 검색해보세요!
       </p>
+  <div>
+    <the-header></the-header>
+    
+    <div v-if="isAuthed" class="home-section">
+    </div>
+
+    <div v-else class="home-section home-intro-section">
+      <div class="home-intro-card">
+        <!-- <div class="home-intro-card-img">
+        </div> -->
+        <div class="home-intro-card-msg">
+          검색하십시오.
+        </div>
+      </div>
+      <div class="home-intro-card">
+        <div class="home-intro-card-msg">
+          리뷰하고 캘린더에 기록하십시오.
+        </div>
+      </div>
+      <div class="home-intro-card">
+        <div class="home-intro-card-msg">
+          추천받으십시오.
+        </div>
+      </div>
+
+      <div class="home-intro-card">
+        <div class="home-intro-card-msg">
+          다른 사용자들과 소통하십시오.
+        </div>
+      </div>
+
+
+      <div class="signup-btn">
+        회원가입하고 이 모든 혜택 누리기
+      </div>
     </div>
     <div class="search-bar-wrap">
       <search-bar></search-bar>
@@ -38,55 +73,77 @@ import SearchBar from '@/components/common/SearchBar'
 export default {
   components: {
     'search-bar': SearchBar
+    'the-header': TheHeader,
+  },
+  
+  computed: {
+    isAuthed() {
+      return this.$store.getters['common/isAuthed']
+    }
   }
+
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/style/base';
 
-#header-img {
-  position: relative;
-  flex-direction: column;
-  height: 80vh;
-  background: #333333;
-  // background-image: url('../../assets/img/header.jpg');
-  background-image: $gradient-yellow;
-  background-size: cover;
+.home-section {
+  padding: 100px auto;
 }
 
-.header-msg {
-  position: absolute;
-  top: 20vh;
-  margin-bottom: 20px;
-  width: 50vw;
-  font-size: 3rem;
-  font-weight: bolder;
-  text-align: left;
-  color: white;
-  text-shadow: 3px 3px 5px #333333;
+.home-intro-section {
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+  // background-image: $gradient-green;
+  height: 1800px;
+}
 
-  &-sm {
-    font-size: 1rem;
-    text-shadow: none;
-    color: black;
+.home-intro-card {
+  display: flex;
+  align-items: center;
+
+  margin: 70px auto;
+  width: 40vw;
+  min-width: 500px;
+  height: 300px;
+  padding: 10px 15px;
+
+  background: white;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 10px grey;
+
+  &-img {
+    border: 1px solid salmon;
+    width: 200px;
+    height: 280px;
+  }
+
+  &-msg {
+    margin-left: 30px;
+    overflow-wrap: normal;
+    font-size: 2rem;
+    text-align: left;
   }
 }
 
-.search-bar-wrap {
-  position: absolute;
-  top: 40vh;
-}
-@keyframes slide-bg {
-    from {background-position-x: 0%;}
-    from {background-position-x: 100%;}
+.signup-btn {
+  @extend .base-btn;
+  margin: 0 auto 150px;
+  width: 300px;
+  height: 100px;
+  background: white;
 }
 
 @media screen and (max-width: 768px) {
-  #header-img {
-    animation: slide-bg 20s linear infinite alternate;
+  .home-intro-card {
+    min-width: 0;
+    width: 80vw;
+    left: 10vw;
   }
-
+  
   .header-msg {
     font-size: 2rem;
   }

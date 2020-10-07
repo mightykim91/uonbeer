@@ -69,7 +69,8 @@ $gradient-yellow: linear-gradient(to right bottom, #e0b677, #e7ff61);
   border: 1px solid grey;
   font-size: 0.8rem;
   transition: 200ms;
-  
+  background: white;
+
   &:hover {
     cursor: pointer;
     background-color: $highlight-color;
