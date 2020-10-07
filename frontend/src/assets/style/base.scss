@@ -8,6 +8,7 @@ $color-3: #406cca;
 
 $gradient-main: linear-gradient(to right bottom, #272a31, #28282c, #333333);
 $gradient-green: linear-gradient(to right bottom, #96abe4, #8ef3c4);
+$gradient-yellow: linear-gradient(to right bottom, #e0b677, #e7ff61);
 
 @mixin fixed-background {
   position: fixed;
@@ -68,7 +69,8 @@ $gradient-green: linear-gradient(to right bottom, #96abe4, #8ef3c4);
   border: 1px solid grey;
   font-size: 0.8rem;
   transition: 200ms;
-  
+  background: white;
+
   &:hover {
     cursor: pointer;
     background-color: $highlight-color;

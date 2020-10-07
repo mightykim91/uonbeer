@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="show ? '' : 'nav-hide'"
+    :class="[show ? '' : 'nav-hide', isHome ? 'nav-transparent' : '']"
     id="nav">
   
     <!-- menu button : mobile -->
@@ -82,6 +82,9 @@ export default {
     isAuthed() {
       return !!this.$cookies.get('auth') | this.$store.state.common.cookie
     },
+    isHome() {
+      return this.$route.path === "/"
+    }
   },
 
   methods: {
@@ -159,6 +162,11 @@ export default {
   width: 150px;
   height: $nav-height - 15;
   font-weight: bolder;
+}
+
+.nav-transparent {
+  background-color: transparent !important;
+  border: none !important;
 }
 
 #menu-btn {
