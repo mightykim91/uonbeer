@@ -27,6 +27,9 @@ class ReviewModel(models.Model):
     #author
     author = models.ForeignKey(User, related_name="reviews", on_delete=models.CASCADE, null=True)
 
+    #author name
+    author_name = models.CharField(max_length=500, null=True)
+
     #image
     image_url = models.URLField(max_length=200, null=True)
     
