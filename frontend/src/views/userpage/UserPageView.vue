@@ -91,12 +91,10 @@ export default {
       alert('곧 업데이트될 예정입니다.')
     },
     fetchBeerFromReview(beer_id) {
-      let beerName = ''
       api.getSingleBeer(beer_id)
         .then((res) => {
-          this.beerName = res.data.name_kr? res.data.name_kr : res.data.name
+          return res.data.name_kr || res.data.name
         })
-      return beerName
     }
   },
 
