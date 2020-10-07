@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from .models import Beer
 import csv
 import pandas as pd
-
+import random
 from .serializers import BeerSerializer
 
 from .firebase import getURL
@@ -164,3 +164,12 @@ def saveCSV(request):
 
         return Response({'beer': beers},status=200)
     
+
+@api_view(['GET'])
+def recommendation(request):
+    pk_list = random.sample(range(4,500),6)
+    beers = Beer.objects.filter(pk__in=pk_list)
+    for beer in beers:
+        beer.image_url = getURL(beer.image_file_name)
+    serializer = BeerSerializer(beers, many=True)
+    return Response(serializer.data)
