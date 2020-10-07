@@ -62,7 +62,7 @@ export default {
   },
 
   created() {
-    api.getRecommendArray(this.$cookies.get('auth'))
+    api.getRecommendArray()
     .then((res) => {
       console.log(res)
     })
