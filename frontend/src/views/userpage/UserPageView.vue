@@ -59,6 +59,7 @@
 // import BeerReviewList from '../../components/beer/BeerReviewList'
 import BeerList from '@/components/beer/BeerList'
 import UserCalendar from '@/components/userpage/UserCalendar'
+import api from '@/api/api'
 
 export default {
   name: 'UserPageView',
@@ -72,7 +73,7 @@ export default {
   data() {
     return {
       selectedTab: 1,
-      tabName: ['리뷰', '위시리스트', '다이어리']
+      tabName: ['리뷰', '위시리스트', '다이어리'],
     }
   },
 
@@ -88,19 +89,34 @@ export default {
     },
     onClickWIP() {
       alert('곧 업데이트될 예정입니다.')
+    },
+    fetchBeerFromReview(beer_id) {
+      let beerName = ''
+      api.getSingleBeer(beer_id)
+        .then((res) => {
+          this.beerName = res.data.name_kr? res.data.name_kr : res.data.name
+        })
+      return beerName
     }
   },
 
 
   created() {
     const username = this.$route.params.username
-    // getUserData 구현필요
-
-    // data에 userData 설정
     this.userData = {
       username,
-      reviewCount: 13,
+      reviewCount: 0,
+      reviewArray: []
     }
+    // getUserData 구현필요
+    api.getReviewByAuthor({user_id: this.$cookies.get('user_id')})
+      .then((res) => {
+        this.userData.reviewArray = res.data.forEach((e) => {
+          e.beerName = this.fetchBeerFromReview(e.beer)
+        })
+        this.$store.dispatch('review/fetchReviewArray', this.userData.reviewArray)
+      })
+    // data에 userData 설정
 
     // getUserReviewArray
     // store에 저장

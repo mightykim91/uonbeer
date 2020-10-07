@@ -30,6 +30,12 @@ def getReviewByBeer(request, beer_id):
     serializer = ReviewSerializer(reviews, many=True)
     return Response(serializer.data, status=200)
 
+@api_view(['GET'])
+def getReviewByAuthor(request, user_id):
+    reviews = ReviewModel.objects.all().filter(author=user_id)
+    serializer = ReviewSerializer(reviews, many=True)
+    return Response(serializer.data, status=200)
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createReview(request, beer_id):

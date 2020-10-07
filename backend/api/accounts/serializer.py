@@ -5,7 +5,7 @@ from rest_auth.models import TokenModel
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email')
+        fields = ('id', 'username', 'email')
 
 class TokenSerializer(serializers.ModelSerializer):
     user = UserSerializer()
