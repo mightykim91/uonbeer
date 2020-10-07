@@ -3,10 +3,11 @@
     <!-- beer image -->
     <div 
       @click="onClickBeerItem"
-      class="beer-img-wrap">
-      <country-flag :country='item.country.toLowerCase()' size="normal"/>
-      <img
-        :src="item.image_url || getRandomBeerImg()" alt="pic" class="beer-img">
+      class="beer-img-wrap"
+      :style="{'background-image': `url(${imgUrl})`}">
+      <div class="beer-flag">
+        <country-flag :country='item.country.toLowerCase()' size="normal"/>
+      </div>
         
     </div>
 
@@ -48,13 +49,16 @@ export default {
   computed: {
     beerName() {
       return this.item.name_kr !== 'none' ? this.item.name_kr : this.item.name
-      }
+    },
+    imgUrl() {
+      return this.item.image_url || this.getRandomBeerImg()
+    }
   },
   
   methods: {
     getRandomBeerImg() {
       let randomNumber = Math.floor(Math.random() * 5 + 1)
-      return require(`../../assets/img/beer${randomNumber}.svg`)
+      return `../../assets/img/beer${randomNumber}.svg`
     },
     fetchReview() {
       api.getReviewByBeer({ beer: this.beerId})
@@ -94,20 +98,31 @@ export default {
   z-index: 1;
 
   &-wrap {
+    @extend .flex-center;
     position: relative;
     min-width: 150px;
     height: 220px;
     background-image: $gradient-main;
+    background-size: cover;
+    background-position: 50% 50%;
     overflow: hidden;
     
     img {
-      max-width: 100%;
+      max-width: 150px;
       max-height: 100%;
       width: auto;
       height: auto;
       z-index: 1;
     }
   }
+}
+
+.flag {
+  position: absolute;
+  top: -10px;
+  left: -15px;
+  // border: 1px solid #333333;
+  box-shadow: -1px 2px 5px grey;
 }
 
 .beer-info {
@@ -133,12 +148,6 @@ export default {
 .review-input {
   width: 300px;
   height: 150px;
-}
-
-.flag {
-  position: absolute;
-  top: 5px;
-  left: 0px;
 }
 
 @media screen and (max-width: 768px) {
