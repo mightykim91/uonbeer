@@ -71,6 +71,7 @@ export default {
 .header-msg {
   position: absolute;
   top: 23vh;
+  left: 25vw;
   margin-bottom: 20px;
   font-size: 4rem;
   font-weight: bolder;
@@ -113,6 +114,7 @@ export default {
 @media screen and (max-width: 768px) {
   .header-msg {
     font-size: 2rem;
+    left: auto;
 
     &-sm {
       font-size: 1rem;
