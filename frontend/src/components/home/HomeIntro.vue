@@ -3,7 +3,7 @@
 
       <div class="home-line"></div> 
 
-      <div class="home-intro-title">
+      <div class="home-title">
         U WANT BEER.는 <br> 맥주를 즐기는 사람들을 위한 <br> 커뮤니티입니다.
       </div>
 
@@ -62,16 +62,16 @@ export default {
   border-bottom: 1px solid lightgrey;
 }
 
-
-.home-intro-section {
-  margin: 0 10vw;
-}
-
-.home-intro-title {
+.home-title {
   margin: 50px auto;
   font-weight: bolder;
   font-size: 1.5rem;
   line-height: 150%;
+}
+
+
+.home-intro-section {
+  margin: 0 10vw;
 }
 
 .home-intro-card {
