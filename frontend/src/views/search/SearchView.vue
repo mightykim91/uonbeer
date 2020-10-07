@@ -1,13 +1,11 @@
 <template>
   <div style="padding-bottom: 100px;">
-    <div class="search-header flex-center">
+    <div class="search-header">
         <search-bar></search-bar>
       <div class="search-filter-box flex-center">
       </div>
     </div>
-    <h2 v-if="isSearchResult">
-      {{ keyword }} 검색결과: {{ searchResultArray.length }}건
-    </h2>
+
     <beer-list></beer-list>
   </div>
 </template>
@@ -47,8 +45,9 @@ export default {
 @import '@/assets/style/base';
 
 .search-header {
+  @extend .flex-center;
   height: 200px;
-  margin-top: 40px;
+  margin: 40px auto;
   background-image: $gradient-green;
   flex-direction: column;
   border-bottom: 1px solid lightgrey;

@@ -9,21 +9,17 @@
       class="beer-content-box">
       <!-- beer img -->
       <div class="beer-img">
-        <img :src="item.image_url? item.image_url:'asdf'">
+        <img :src="item.image_url || getRandomBeerImg()">
       </div>
       <!-- beer info -->
       <div class="beer-info">
         <div class="info-title flex-between">
           <div>맥주 정보</div>
-          <div class="video-call-btn">
-            <i class="fas fa-video"></i>. 화상채팅 입장하기
-          </div>
+          <div v-if="isAuthed" class="video-call-btn">채팅 입장하기</div>
         </div>
         <p>스타일 : {{ item.style }}</p>
-        <p>지역 : {{ item.country }}
-          <span v-if="item.state">, {{ item.state }}</span>
-        </p>
-        <p>도수 : {{ item.abv }}</p>
+        <p>국가 : {{ item.country }}</p>
+        <p>도수 : {{ item.abv }}%</p>
       </div>
     </div>
 
@@ -50,7 +46,9 @@
         <!-- title: review create -->
         <div v-if="isReviewCreate" class="info-title">리뷰 작성</div>
 
+        <!-- toggle button -->
         <div 
+          v-if="isAuthed"
           @click="toggleReview"
           class="base-btn">
           <span v-if="isReviewCreate">
@@ -115,6 +113,9 @@ export default {
     },
     beerReviewArray() {
       return this.$store.state.beer.beerReviewArray
+    },
+    isAuthed() {
+      return this.$store.getters['common/isAuthed']
     }
   },
 
@@ -126,6 +127,10 @@ export default {
     },
     toggleReview() {
       this.isReviewCreate = !this.isReviewCreate
+    },
+    getRandomBeerImg() {
+      let randomNumber = Math.floor(Math.random() * 5 + 1)
+      return require(`../../assets/img/beer${randomNumber}.svg`)
     },
   }
 }
@@ -168,9 +173,10 @@ export default {
     @extend .flex-center;
     width: 23vw;
     margin-right: 30px;
-    min-height: 300px;
+    height: 280px;
     background-color: #fefefe;
     border: 1px dashed lightgrey;
+    overflow: hidden;
 
     img {
       max-width: 100%;
@@ -197,12 +203,6 @@ export default {
 .beer-content-box {
   display: flex;
   background: white;
-
-  // div {
-  //   width: 30vw;
-  //   // height: 250px;
-  //   // border: 1px solid salmon;
-  // }
 }
 
 .review {

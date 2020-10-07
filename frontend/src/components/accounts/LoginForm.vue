@@ -53,20 +53,13 @@
             :class="[ isFormValid ? 'active-btn' : '' , 'submit-btn']">
             로그인
         </div>
-
-        <!-- helpers and links -->
-        <div class="login-link-box" style="margin-bottom: 5px;">
-            <div class="helper">아직 회원이 아니신가요?</div>
-            <router-link :to="'/auth/signup'">
-                <div>회원가입</div>
-            </router-link>
+        <div class="signup-msg">
+            아직 회원이 아니신가요?
         </div>
-
-        <div class="login-link-box">
-            <div class="helper">비밀번호를 잊으셨나요?</div>
-            <router-link :to="'/'">
-                <div>비밀번호 찾기</div>
-            </router-link>
+        <div
+            @click="onClickLink('/auth/signup')"
+            class="signup-btn">
+            회원가입
         </div>
     </div>
 </template>
@@ -99,6 +92,10 @@ export default {
     },
 
     methods: {
+        onClickLink(path) {
+      this.$router.push(path)
+        .catch(() => {})
+    },
         handleSubmit() {
             if (this.isFormValid) {
                 api.login({email: this.email, password: this.password})

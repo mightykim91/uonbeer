@@ -55,7 +55,7 @@ $modal-height: 600px;
     @include fixed-background;
     background-color: black;
     opacity: 0.8;
-    z-index: 4;
+    z-index: 6;
   }
 
   &-container {
