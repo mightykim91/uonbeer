@@ -87,7 +87,27 @@ export default {
     onClickUp() {
       smoothScrollTo(0)
     }
+  },
+
+  created() {
+    this.observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('blend-up')
+        }
+      })
+    })
+  },
+
+  mounted() {
+    const cards = document.querySelectorAll('.home-intro-card')
+    cards.forEach(card => this.observer.observe(card))
+  },
+
+  beforeDestroyed() {
+    this.observer.disconnect()
   }
+
 }
 </script>
 
@@ -109,7 +129,6 @@ export default {
   line-height: 150%;
 }
 
-
 .home-intro-card {
   @extend .flex-center;
   flex-direction: column;
@@ -121,6 +140,7 @@ export default {
   border-radius: 5px;
   border: 1px solid lightgrey;
   box-shadow: 5px 5px 5px lightgrey;
+  opacity: 0;
 
   &-wrap {
     width: 80vw;
