@@ -1,40 +1,41 @@
 <template>
   <div
-    :class="show ? '' : 'nav-hide'"
+    :class="[show ? '' : 'nav-hide', isHome ? 'nav-transparent' : '']"
     id="nav">
   
-    <!-- menu button -->
-    <div
-      v-if="show"
-      @click="onClickMenu"
-      id="menu-btn"
-      class="flex-center">
-        <i class="fas fa-bars"></i>
-    </div>
+    <!-- menu button : mobile -->
+      <!-- <i
+        v-if="show"
+        @click="onClickMenu"
+        id="menu-btn"
+        class="fas fa-bars show-on-mobile"></i> -->
 
     <!-- logo -->
     <div
       v-if="show"
       @click="onClickLink('/')"
-      class="nav-logo flex-center">
-      LOGO HERE
+      class="nav-logo">
+      U WANT BEER.
     </div>
 
-    <!-- auth buttons pc && not authed -->
+    <!-- menu : pc -->
+    <div class="hide-on-mobile">
+      
+    </div>
+
+    <!-- auth buttons : not authed -->
     <div
       v-if="show && !isAuthed"
-      class="hide-on-mobile flex-center">
-      <div @click="onClickLink('/auth/signup')">회원가입</div>
-      <div
-        @click="onClickLink('/auth/login')"
-        class="nav-login-btn flex-center">로그인</div>
+      @click="onClickLink('/auth/login')"
+      class="base-btn">로그인
     </div>
 
-    <!-- user button authed || mobile  -->
+
+    <!-- user button : authed  -->
     <div
-      v-if="show"
+      v-if="show && isAuthed"
       @click="onClickUser"
-      :class="[ isAuthed ? '' : 'show-on-mobile', 'nav-user-button flex-center']">
+      class="nav-user-icon">
       <i class="fas fa-user-circle"></i>
     </div>
 
@@ -43,22 +44,13 @@
       @click="onClickUser"
       v-if="showUserDropdown"
       class="user-dropdown-box">
-      <div v-if="isAuthed">
+      <div>
         <div
+          @click="onClickLink(`/user/${username}`)"
           class="user-dropdown-item">마이페이지</div>
         <div
           @click="onClickLogout"
           class="user-dropdown-item">로그아웃</div>
-      </div>
-      <div v-else>
-        <div
-          @click="onClickLink('/auth/signup')"
-          class="user-dropdown-item">회원가입
-        </div>
-        <div
-          @click="onClickLink('/auth/login')"
-          class="user-dropdown-item">로그인
-        </div>
       </div>
     </div>
   </div>
@@ -83,6 +75,12 @@ export default {
   computed: {
     isAuthed() {
       return !!this.$cookies.get('auth') | this.$store.state.common.cookie
+    },
+    isHome() {
+      return this.$route.path === "/"
+    },
+    username() {
+      return this.$cookies.get('username') || null
     }
   },
 
@@ -117,7 +115,7 @@ export default {
           this.$router.push('/')
           })
         .catch(() => alert('서버에러'))
-    }
+    },
   },
 
   mounted() {
@@ -142,9 +140,7 @@ export default {
   padding: 0 10vw;
 
   border-bottom: 1px solid lightgrey;
-  background-color: #333333;
-  background-image: $gradient-main;
-  color: whitesmoke;
+  background-color: white;
   font-size: 0.8rem;
 
   transition: ease-out 200ms;
@@ -160,48 +156,29 @@ export default {
 }
 
 .nav-logo {
+  @extend .flex-center;
   width: 150px;
   height: $nav-height - 15;
-  border: 3px solid $highlight-color;
-  background: black;
-  color: white;
   font-weight: bolder;
 }
 
+.nav-transparent {
+  background-color: transparent !important;
+  border: none !important;
+}
+
 #menu-btn {
-  display: flex;
-  align-items: center;
-  height: $nav-height - 10;
-  width: 116px;
   font-size: 1.2rem;
-  text-align: left;
-  transition: ease-in-out 300ms;
+  margin: 0 15px;
 
   &:hover {
-    cursor: pointer;
-    color: $highlight-color;
+      cursor: pointer;
   }
 }
 
-.nav-login-btn {
-  margin-left: 10px;
-
-  height: $nav-height - 10;
-  width: 60px;
-  border-radius: 20px;
-  background-color: #555555;
-  color: white;
-  transition: ease-out 200ms;
-
-  &:hover {
-    background-image: none;
-    background-color: $highlight-color;
-  }
-}
-
-.nav-user-button {
-  width: 45px;
-  font-size: 1.5rem;
+.nav-user-icon {
+  margin-right: 15px;
+  font-size: 1.3rem;
 }
 
 .user-dropdown-box {
@@ -222,14 +199,13 @@ export default {
   }
 }
 
+.base-btn {
+  margin-right: 15px;
+}
+
 @media screen and (max-width: 768px) {
   #nav {
     padding: 0;
-  }
-
-  #menu-btn {
-    width: 45px;
-    justify-content: center;
   }
 
   .user-dropdown-box {

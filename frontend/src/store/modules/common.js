@@ -4,17 +4,27 @@ export default {
   namespaced: true,
   
   state: {
-    cookie: cookies.get('auth') ? true : false, 
+    cookie: cookies.get('auth') ? true : false,
     showSidebar: false,
+    showModalMain: false,
   },
 
+  getters: {
+    isAuthed(state) {
+      return state.cookie | cookies.get('auth')
+    }
+  },
+  
   mutations: {
+    toggleCookie(state) {
+      state.cookie = !state.cookie
+    },
     toggleShowSidebar(state) {
       state.showSidebar = !state.showSidebar
     },
-    toggleCookie(state) {
-      state.cookie = !state.cookie
-    }
+    toggleShowModal(state) {
+      state.showModalMain = !state.showModalMain
+    },
   },
 
   actions: {

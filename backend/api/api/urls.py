@@ -21,4 +21,6 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('beer/', include('beer.urls')), #forward to url related to beer
+    path('recommendation/', include('recommendation.urls')), #forward to url related to recommendation
+    path('review/', include('review.urls')), #forward to url related to review
 ]

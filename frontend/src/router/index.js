@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// modules
-import accountsRouter from './modules/accountsRouter'
-
 // components
 import Home from '@/views/Home'
+import AuthView from '@/views/accounts/AuthView'
 import SearchView from '@/views/search/SearchView'
+import UserPageView from '@/views/userpage/UserPageView'
+//김연수 추가
+// import Chat from '@/components/facecall/FaceCall'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,10 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/auth/:type',
+    component: AuthView,
   },
   {
     path: '/search/',
@@ -28,7 +33,15 @@ Vue.use(VueRouter)
       }
     ]
   },
-  ...accountsRouter,
+  {
+    path: '/user/:username',
+    name: 'UserPage',
+    component: UserPageView,
+  },
+  // {
+  //   path: '/facechat',
+  //   component: Chat
+  // }
 ]
 
 const router = new VueRouter({

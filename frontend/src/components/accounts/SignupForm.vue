@@ -69,7 +69,7 @@
         <!-- submit bottom -->
         <div
             @click="handleSubmit()"
-            :class="[isFormValid ? 'active-color' : '', 'submit-btn']">
+            :class="[isFormValid ? 'active-btn' : '', 'submit-btn']">
             가입하기
         </div>
     </div>
@@ -101,7 +101,7 @@ export default {
         },
         // 영문 대소문자로 시작 숫자,_ 포함 4-12글자
         isUsernameValid() {
-            return accountsRegex.username.test(this.username)
+            return /^[(a-zA-Z)]+[a-zA-Z0-9_]{4,12}$/g.test(this.username)
         },
         // 영문자, 숫자, 특수문자 1개 이상, 8-20글자
         isPasswordValid() {
