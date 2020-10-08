@@ -23,19 +23,25 @@
         <br class="show-on-mobile">
         취향에 맞는 맥주를
         <br class="show-on-mobile">
-        냉장고에서 고르는 중입니다...</div>
+        냉장고에서 꺼내오는 중입니다...</div>
       <vue-loading
         type="cylon" color="#29a3e9"
         :size="{ width: '80px', height: '50px' }">
       </vue-loading>
     </div>
 
-    <div v-else></div>
+    <div v-else>
+      <home-recommend-beer-list :recommendArray="recommendArray">
+      </home-recommend-beer-list>
+    </div>
+
+    <div style="margin-top: 100px; height: 150px; background: #424244;"></div>
   </div>
 </template>
 
 <script>
 // components
+import HomeRecommendBeerList from './HomeRecommendBeerList'
 
 // modules
 import api from '@/api/api'
@@ -44,11 +50,13 @@ export default {
   name: 'HomeRecommend',
 
   components: {
+    HomeRecommendBeerList
   },
 
   data() {
     return {
       isLoading: true,
+      recommendArray: [],
     }
   },
   
@@ -59,14 +67,34 @@ export default {
   },
 
   methods: {
+    getRecommendArray() {
+      api.getRecommendArray()
+        .then((res) => {
+          this.recommendArray = res.data
+          this.isLoading = false
+        })
+    }
   },
 
   created() {
-    api.getRecommendArray()
-    .then((res) => {
-      console.log(res)
+    this.observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.getRecommendArray()
+          this.observer.disconnect()
+        }
+      })
     })
   },
+
+  mounted() {
+    const loadingArea = document.querySelector('.home-loading')
+    this.observer.observe(loadingArea)
+  },
+
+  beforeDestroy() {
+    this.observer.disconnect()
+  }
 }
 </script>
 
@@ -109,5 +137,15 @@ export default {
 
 .vue-loading {
   margin: 50px auto !important;
+}
+
+.recommend-btn {
+  @extend .flex-center;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  background: $highlight-color;
+  color: white;
+
 }
 </style>
