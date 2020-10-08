@@ -101,7 +101,9 @@ export default {
 
   mounted() {
     const cards = document.querySelectorAll('.home-intro-card')
+    const signupForm = document.querySelector('.signup-form-wrap')
     cards.forEach(card => this.observer.observe(card))
+    this.observer.observe(signupForm)
   },
 
   beforeDestroyed() {
@@ -204,6 +206,7 @@ export default {
     min-height: 400px;
     margin: 200px auto auto;
     background-color: white;
+    opacity: 0;
   }
 }
 

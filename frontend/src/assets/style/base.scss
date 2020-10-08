@@ -28,7 +28,8 @@ $gradient-red: linear-gradient(to right bottom, #ffe816, #a0ff24);
 }
 
 .blend-up {
-  animation-duration: 250ms;
+  animation-delay: 100ms;
+  animation-duration: 300ms;
   animation-name: blend-up;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
