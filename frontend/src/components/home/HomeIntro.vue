@@ -32,6 +32,12 @@
         회원가입
       </div>
 
+      <div class="circle-sm"></div>
+      <div class="circle-lg"></div>
+      <div class="circle-sm"></div>
+      <div class="circle-lg"></div>
+      <div class="circle-sm"></div>
+
       <!-- signup form -->
       <div class="signup-form-wrap">
         <signup-form></signup-form>
@@ -186,7 +192,7 @@ export default {
   
   &-btn {
     @extend .base-btn;
-    margin: 20px auto 70px;
+    margin: 20px auto;
     padding:0;
     width: 300px;
     height: 40px;
@@ -204,7 +210,7 @@ export default {
     @extend .flex-center;
     max-width: 500px;
     min-height: 400px;
-    margin: 200px auto auto;
+    margin: 20px auto auto;
     background-color: white;
     opacity: 0;
   }
@@ -224,6 +230,26 @@ export default {
   &:hover {
     cursor: pointer;
     background-color: $highlight-color;
+  }
+}
+
+.circle {
+  border-radius: 100%;
+  margin: 20px auto;
+
+  &-lg {
+    @extend .circle;
+    width: 10px;
+    height: 10px;
+    background: #999999;
+    opacity: 0.7;
+  }
+
+  &-sm {
+    @extend .circle;
+    width: 7px;
+    height: 7px;
+    background: white;
   }
 }
 
