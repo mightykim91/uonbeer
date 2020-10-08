@@ -34,25 +34,27 @@
     <!-- user button : authed  -->
     <div
       v-if="show && isAuthed"
-      @click="onClickUser"
+      @click="toggleDropdown"
       class="nav-user-icon">
+      <span class="nav-user-icon-msg">{{ username }}님, 안녕하세요!</span>
       <i class="fas fa-user-circle"></i>
-    </div>
-
-    <!-- user botton dropdown menu -->
-    <div
-      @click="onClickUser"
-      v-if="showUserDropdown"
-      class="user-dropdown-box">
-      <div>
-        <div
-          @click="onClickLink(`/user/${username}`)"
-          class="user-dropdown-item">마이페이지</div>
-        <div
-          @click="onClickLogout"
-          class="user-dropdown-item">로그아웃</div>
+    
+      <!-- user botton dropdown menu -->
+      <div
+        v-if="showUserDropdown"
+        @click="toggleDropdown"
+        class="user-dropdown-box">
+        <div>
+          <div
+            @click="onClickLink(`/user/${username}`)"
+            class="user-dropdown-item">마이페이지</div>
+          <div
+            @click="onClickLogout"
+            class="user-dropdown-item">로그아웃</div>
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -104,7 +106,7 @@ export default {
         .catch(smoothScrollTo(0))
         .catch(() => {})
     },
-    onClickUser() {
+    toggleDropdown() {
       this.showUserDropdown = !this.showUserDropdown
     },
     onClickLogout() {
@@ -177,21 +179,28 @@ export default {
 }
 
 .nav-user-icon {
+  @extend .flex-center;
   margin-right: 15px;
   font-size: 1.3rem;
+
+  &-msg {
+    @extend .hide-on-mobile;
+    margin-right: 10px;
+    font-size: 12px;
+  }
 }
 
 .user-dropdown-box {
   position: absolute;
   top: $nav-height;
-  right: 7.5vw;
   background-color: $font-main;
   color: white;
   
   .user-dropdown-item {
     @extend .flex-center;
-    width: 120px;
-    height: 40px;
+    width: 150px;
+    height: 60px;
+    font-size: 12px;
 
     &:hover {
       background-color: $highlight-menu;
