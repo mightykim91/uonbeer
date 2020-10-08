@@ -11,17 +11,13 @@
 
 <script>
 // components
-import BeerListItem from './BeerListItem'
-import api from '@/api/api'
+import BeerListItem from '@/components/beer/BeerListItem'
 
 export default {
   name: 'BeerList',
 
-  data() {
-    return {
-      limit: 12,
-      busy: false
-    }
+  props: {
+    recommendArray: Array
   },
 
   components: {
