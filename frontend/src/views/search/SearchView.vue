@@ -1,15 +1,11 @@
 <template>
-  <div>
-    <div class="search-header flex-center">
+  <div style="padding-bottom: 100px;">
+    <div class="search-header">
         <search-bar></search-bar>
       <div class="search-filter-box flex-center">
-        필터 옵션 (개발 중)
       </div>
-    </div>    
-    <h2 v-if="isSearchResult">
-      {{ keyword }} 검색결과: {{ searchResultArray.length }}건
-    </h2>
-    
+    </div>
+
     <beer-list></beer-list>
   </div>
 </template>
@@ -49,22 +45,22 @@ export default {
 @import '@/assets/style/base';
 
 .search-header {
+  @extend .flex-center;
   height: 200px;
-  margin-top: 40px;
-  // background-image: $gradient-main;
+  margin: 40px auto;
+  background-image: $gradient-green;
   flex-direction: column;
   border-bottom: 1px solid lightgrey;
 }
 
 .search-filter-box {
-  // temp
-  height: 50px;
-  color: blue; 
+  height: 80px;
 }
 
 @media screen and (max-width: 768px) {
   .search-header {
-    height: auto;
+    height: 160px;
+    justify-content: start;
   }
 
   .search-filter-box {

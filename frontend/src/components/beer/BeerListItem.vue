@@ -1,58 +1,77 @@
 <template>
-  <div
-    class="beer-list-item-wrap flex-center">
-
+  <div class="beer-list-item-wrap">
     <!-- beer image -->
-    <div class="beer-img-wrap" @click="show">
-      <img :src="getRandomBeerImg()" alt="pic" class="beer-img">
+    <div 
+      @click="onClickBeerItem"
+      class="beer-img-wrap"
+      :style="{'background-image': `url(${imgUrl})`}">
+      <div class="beer-flag">
+        <country-flag :country='item.country.toLowerCase()' size="normal"/>
+      </div>
+        
     </div>
 
     <!-- beer info -->
     <div class="beer-info-box">
-
-      <div class="beer-info-name">{{ item.name }}</div>
-      <div>{{ item.country }}<span v-if="item.state">, {{ item.state }}</span></div>
-      <div>{{ item.brewery }}</div>
-      <div>ABV {{ item.abv }}</div>
-
-      <div class="beer-match-rate">{{ matchRate }}%</div>
-    </div>
-
-    <div>
-      
-      <modal :name="String(beerId)">
-        {{ item.name }}
-        {{ item.abv}}
-      </modal>
+      <div class="beer-info-name">
+        <span>{{ beerName }}</span>
+      </div>
+      <div style="font-size: 13px;">
+        <div class="beer-info-title">제조업체</div>
+        <div v-text="item.brew_name || '정보없음'"></div>
+        <div class="beer-info-title">스타일</div>
+        <div>{{ item.style }}</div>
+        <div class="beer-info-title">도수</div>
+        <div>{{ item.abv }}%</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// modules
+import api from '@/api/api'
+import CountryFlag from 'vue-country-flag'
+
+// components
 export default {
   name: 'BeerListItem',
-  
+
+  component: {
+    CountryFlag
+  },
+
   props: {
     item: Object,
-    beerId: Number
+    beerId: Number,
   },
 
   computed: {
-    matchRate() {
-      return Math.floor(Math.random() * 40, 1) + 60
+    beerName() {
+      return this.item.name_kr !== 'none' ? this.item.name_kr : this.item.name
     },
+    imgUrl() {
+      return this.item.image_url || this.getRandomBeerImg()
+    }
   },
   
   methods: {
     getRandomBeerImg() {
       let randomNumber = Math.floor(Math.random() * 5 + 1)
-      return require(`../../assets/img/beer${randomNumber}.svg`)
+      return `../../assets/img/beer${randomNumber}.svg`
     },
-    show () {
-      this.$modal.show(String(this.beerId));
+    fetchReview() {
+      api.getReviewByBeer({ beer: this.beerId})
+        .then((res) => {
+          this.$store.state.beer.beerReviewArray = res.data
+        })
+        .catch(()=> alert('err'))
     },
-    hide () {
-      this.$modal.hide(String(this.beerId));
+    onClickBeerItem() {
+      this.$store.commit('beer/setBeerItem', this.item)
+      this.$store.state.beer.beerReviewArray = []
+      this.fetchReview()
+      this.$store.commit('common/toggleShowModal')
     },
   },
 }
@@ -63,7 +82,7 @@ export default {
 @import '@/assets/style/base';
 
 .beer-list-item-wrap {
-  // display: flex;
+  @extend .flex-center;
   border: 1px solid lightgrey;
 
   &:hover {
@@ -74,47 +93,67 @@ export default {
 
 .beer-img {
   position: relative;
-  top: -200px;
+  // top: -200px;
   left: 10px;
   z-index: 1;
 
   &-wrap {
-    width: 150px;
+    @extend .flex-center;
+    position: relative;
+    min-width: 150px;
     height: 220px;
     background-image: $gradient-main;
+    background-size: cover;
+    background-position: 50% 50%;
     overflow: hidden;
+    
+    img {
+      max-width: 150px;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 1;
+    }
   }
+}
+
+.flag {
+  position: absolute;
+  top: -10px;
+  left: -15px;
+  // border: 1px solid #333333;
+  box-shadow: -1px 2px 5px grey;
 }
 
 .beer-info {
   &-box {
     flex-grow: 2;
-    padding: 10px 20px;
+    padding: 5px 15px;
     height: 200px;
     text-align: left;
 
-    div {
-      margin: 10px 0;
-      color: $font-main;
-    }
   }
   &-name {
-    // border: none;
-    // border-bottom: 6px solid;
-    // border-image-slice: 1;
-    // border-width: 3px;
-    // border-image-source: linear-gradient(to left, #ffc506, #3e5de6);
-    // border-bottom: 2px solid salmon;
     color: black !important;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bolder;
+  }
+
+  &-title {
+    margin: 10px auto 5px;
+    font-weight: bold;
   }
 }
 
-.beer-match-rate {
-  color: black !important;
-  font-size: 3rem;
-  font-weight: bolder;
-  text-align: center;
+.review-input {
+  width: 300px;
+  height: 150px;
 }
+
+@media screen and (max-width: 768px) {
+  .beer-list-item-wrap {
+      margin: auto;
+  }
+}
+
 </style>

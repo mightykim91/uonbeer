@@ -53,20 +53,13 @@
             :class="[ isFormValid ? 'active-btn' : '' , 'submit-btn']">
             로그인
         </div>
-
-        <!-- helpers and links -->
-        <div class="login-link-box" style="margin-bottom: 5px;">
-            <div class="helper">아직 회원이 아니신가요?</div>
-            <router-link :to="'/auth/signup'">
-                <div>회원가입</div>
-            </router-link>
+        <div class="signup-msg">
+            아직 회원이 아니신가요?
         </div>
-
-        <div class="login-link-box">
-            <div class="helper">비밀번호를 잊으셨나요?</div>
-            <router-link :to="'/'">
-                <div>비밀번호 찾기</div>
-            </router-link>
+        <div
+            @click="onClickLink('/auth/signup')"
+            class="signup-btn">
+            회원가입
         </div>
     </div>
 </template>
@@ -99,17 +92,24 @@ export default {
     },
 
     methods: {
+        onClickLink(path) {
+      this.$router.push(path)
+        .catch(() => {})
+    },
         handleSubmit() {
             if (this.isFormValid) {
                 api.login({email: this.email, password: this.password})
                     .then((res) => {
                         // 이메일 기억하기
+                        console.log(res)
                         if (this.rememberMe) {
                             localStorage.email = this.email
                         }
 
                         // 쿠키 설정 및 redirect
-                        this.$cookies.set('auth',res.data.key)
+                        this.$cookies.set('auth', res.data.key)
+                        this.$cookies.set('username', res.data.user.username)
+                        this.$cookies.set('user_id', res.data.user.id)
                         this.$store.commit('common/toggleCookie')
                         this.$router.push('/')
                     }).catch(() => {
