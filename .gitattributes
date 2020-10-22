@@ -1,1 +1,2 @@
+backend/api/recommendation/src/algo.pkl filter=lfs diff=lfs merge=lfs -text
 *.{zip,jar,pkl} filter=lfs diff=lfs merge=lfs -text
